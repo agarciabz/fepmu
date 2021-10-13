@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "projects": {
+    "fepmu": {
+      "projectType": "application",
+      "root": "apps/fepmu",
+      "sourceRoot": "apps/fepmu/src",
+      "prefix": "fepmu",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/fepmu",
+            "index": "apps/fepmu/src/index.html",
+            "main": "apps/fepmu/src/main.ts",
+            "polyfills": "apps/fepmu/src/polyfills.ts",
+            "tsConfig": "apps/fepmu/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["apps/fepmu/src/favicon.ico", "apps/fepmu/src/assets"],
+            "styles": ["apps/fepmu/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/fepmu/src/environments/environment.ts",
+                  "with": "apps/fepmu/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "fepmu:build:production"
+            },
+            "development": {
+              "browserTarget": "fepmu:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "fepmu:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/fepmu/src/**/*.ts",
+              "apps/fepmu/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/fepmu"],
+          "options": {
+            "jestConfig": "apps/fepmu/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "fepmu-e2e": {
+      "root": "apps/fepmu-e2e",
+      "sourceRoot": "apps/fepmu-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/fepmu-e2e/cypress.json",
+            "devServerTarget": "fepmu:serve:development",
+            "tsConfig": "apps/fepmu-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "fepmu:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/fepmu-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "npm"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "fepmu"
+}
