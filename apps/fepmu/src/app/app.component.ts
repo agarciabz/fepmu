@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'fepmu-root',
+  selector: 'pmu-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

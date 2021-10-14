@@ -5,7 +5,7 @@
       "projectType": "application",
       "root": "apps/fepmu",
       "sourceRoot": "apps/fepmu/src",
-      "prefix": "fepmu",
+      "prefix": "pmu",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
