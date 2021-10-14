@@ -1,6 +1,28 @@
 {
   "version": 1,
   "projects": {
+    "data-three-houses": {
+      "root": "libs/data/three-houses",
+      "sourceRoot": "libs/data/three-houses/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/data/three-houses/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/data/three-houses"],
+          "options": {
+            "jestConfig": "libs/data/three-houses/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "fepmu": {
       "projectType": "application",
       "root": "apps/fepmu",

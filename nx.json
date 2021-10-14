@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "data-three-houses": {
+      "tags": ["ts"]
+    },
     "fepmu": {
       "tags": []
     },
