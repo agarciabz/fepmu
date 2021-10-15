@@ -139,6 +139,31 @@
           }
         }
       }
+    },
+    "ui-checkbox": {
+      "projectType": "library",
+      "root": "libs/ui/checkbox",
+      "sourceRoot": "libs/ui/checkbox/src",
+      "prefix": "fepmu",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/checkbox"],
+          "options": {
+            "jestConfig": "libs/ui/checkbox/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui/checkbox/src/**/*.ts",
+              "libs/ui/checkbox/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -36,6 +36,9 @@
     "fepmu-e2e": {
       "tags": [],
       "implicitDependencies": ["fepmu"]
+    },
+    "ui-checkbox": {
+      "tags": ["ui"]
     }
   }
 }
