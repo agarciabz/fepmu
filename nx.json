@@ -39,6 +39,9 @@
     },
     "ui-checkbox": {
       "tags": ["ui"]
+    },
+    "utils": {
+      "tags": ["ts"]
     }
   }
 }
