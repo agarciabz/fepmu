@@ -1,1 +1,35 @@
-<p>checkbox works!</p>
+<button (click)="setValue(!value)" class="pnp-checkbox" [disabled]="disabled">
+  <ng-container *ngIf="value">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="stroke-current"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M5 12l5 5l10 -10" />
+    </svg>
+  </ng-container>
+  <ng-container *ngIf="isNullish(value)">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="stroke-current"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </svg>
+  </ng-container>
+</button>
+<ng-content></ng-content>
