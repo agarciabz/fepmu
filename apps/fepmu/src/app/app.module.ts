@@ -3,10 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { CheckboxModule } from '@fepmu/ui/checkbox';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, CheckboxModule],
+  imports: [BrowserModule, CheckboxModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,0 +1,13 @@
+:host {
+  @apply flex items-center justify-start space-x-1;
+
+  .pnp-checkbox {
+    @apply w-7 h-7 flex items-center justify-center cursor-pointer mr-2 bg-white text-black border border-black
+  }
+
+  button {
+    &[disabled] {
+      @apply cursor-not-allowed;
+    }
+  }
+}

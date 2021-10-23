@@ -33,7 +33,9 @@ export class CheckboxComponent extends ControlValueAccessor<boolean> {
 
   @HostListener('change', ['$event.target.checked'])
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onChange = (checked: boolean | null) => {};
+  onChange = (checked: boolean | null) => {
+    console.log('onChange', checked);
+  };
 
   @HostListener('blur')
     // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -55,6 +57,7 @@ export class CheckboxComponent extends ControlValueAccessor<boolean> {
   public setValue(value: boolean) {
     this.value = value;
     this.onChange(value);
+    this.cdr.detectChanges();
   }
 
 
