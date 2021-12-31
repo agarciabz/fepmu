@@ -2,7 +2,7 @@ import { Route } from './game';
 import { Gender } from './utils';
 
 export interface Options {
-  route: Route;
+  route: string;
   avatarGender: Gender | 'random';
   randomizeClasses: boolean;
   allowInviableBuilds: boolean;

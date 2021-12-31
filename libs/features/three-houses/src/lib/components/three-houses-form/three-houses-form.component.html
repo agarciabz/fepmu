@@ -1,0 +1,45 @@
+<div class="space-y-4">
+  <div [formGroup]="formGroup" class="space-y-2">
+    <!-- Route -->
+    <tui-select formControlName="route" tuiTextfieldSize="m">
+      Route
+      <tui-data-list-wrapper *tuiDataList [items]="routes"></tui-data-list-wrapper>
+    </tui-select>
+    <!-- Gender -->
+    <tui-select formControlName="avatarGender" tuiTextfieldSize="m">
+      Avatar gender
+      <tui-data-list-wrapper *tuiDataList [items]="avatarGender"></tui-data-list-wrapper>
+    </tui-select>
+    <!-- Randomize classes -->
+    <tui-checkbox-labeled formControlName="randomizeClasses" size="l">
+      Randomize classes
+    </tui-checkbox-labeled>
+    <!-- Allow inviable builds -->
+    <tui-checkbox-labeled formControlName="allowInviableBuilds" size="l">
+      Allow inviable builds
+    </tui-checkbox-labeled>
+    <!-- Allow other houses -->
+    <tui-checkbox-labeled formControlName="allowOtherHouses" size="l">
+      Allow other houses
+    </tui-checkbox-labeled>
+    <!-- Balance roster -->
+    <tui-checkbox-labeled formControlName="balanceRoster" size="l">
+      Balance roster
+    </tui-checkbox-labeled>
+    <!-- Include free updates -->
+    <tui-checkbox-labeled formControlName="includeFreeUpdates" size="l">
+      Include free updates
+    </tui-checkbox-labeled>
+    <!-- Include season pass -->
+    <tui-checkbox-labeled formControlName="includeSeasonPass" size="l">
+      Include season pass
+    </tui-checkbox-labeled>
+    <!-- Roster size -->
+    <tui-input-count formControlName="rosterSize" tuiTextfieldSize="m" [min]="2" [max]="12">
+      Roster size
+    </tui-input-count>
+  </div>
+  <div class="flex">
+    <button class="grow" tuiButton type="button" (click)="submitPick()">Pick my units</button>
+  </div>
+</div>

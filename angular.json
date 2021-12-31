@@ -21,26 +21,65 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
-    "fepmu": {
+    "features-three-houses": {
+      "projectType": "library",
+      "root": "libs/features/three-houses",
+      "sourceRoot": "libs/features/three-houses/src",
+      "prefix": "fepmu",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/three-houses"],
+          "options": {
+            "jestConfig": "libs/features/three-houses/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/three-houses/src/**/*.ts",
+              "libs/features/three-houses/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "fepmu-app": {
       "projectType": "application",
-      "root": "apps/fepmu",
-      "sourceRoot": "apps/fepmu/src",
-      "prefix": "pmu",
+      "root": "apps/fepmu-app",
+      "sourceRoot": "apps/fepmu-app/src",
+      "prefix": "fepmu",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/fepmu",
-            "index": "apps/fepmu/src/index.html",
-            "main": "apps/fepmu/src/main.ts",
-            "polyfills": "apps/fepmu/src/polyfills.ts",
-            "tsConfig": "apps/fepmu/tsconfig.app.json",
+            "outputPath": "dist/apps/fepmu-app",
+            "index": "apps/fepmu-app/src/index.html",
+            "main": "apps/fepmu-app/src/main.ts",
+            "polyfills": "apps/fepmu-app/src/polyfills.ts",
+            "tsConfig": "apps/fepmu-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["apps/fepmu/src/favicon.ico", "apps/fepmu/src/assets"],
-            "styles": ["apps/fepmu/src/styles.scss"],
+            "assets": [
+              "apps/fepmu-app/src/favicon.ico",
+              "apps/fepmu-app/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/@taiga-ui/icons/src",
+                "output": "assets/taiga-ui/icons"
+              }
+            ],
+            "styles": [
+              "apps/fepmu-app/src/styles.scss",
+              "node_modules/@taiga-ui/core/styles/taiga-ui-global.less",
+              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -59,8 +98,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/fepmu/src/environments/environment.ts",
-                  "with": "apps/fepmu/src/environments/environment.prod.ts"
+                  "replace": "apps/fepmu-app/src/environments/environment.ts",
+                  "with": "apps/fepmu-app/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -80,10 +119,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "fepmu:build:production"
+              "browserTarget": "fepmu-app:build:production"
             },
             "development": {
-              "browserTarget": "fepmu:build:development"
+              "browserTarget": "fepmu-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -91,43 +130,43 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fepmu:build"
+            "browserTarget": "fepmu-app:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/fepmu/src/**/*.ts",
-              "apps/fepmu/src/**/*.html"
+              "apps/fepmu-app/src/**/*.ts",
+              "apps/fepmu-app/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/fepmu"],
+          "outputs": ["coverage/apps/fepmu-app"],
           "options": {
-            "jestConfig": "apps/fepmu/jest.config.js",
+            "jestConfig": "apps/fepmu-app/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
-    "fepmu-e2e": {
-      "root": "apps/fepmu-e2e",
-      "sourceRoot": "apps/fepmu-e2e/src",
+    "fepmu-app-e2e": {
+      "root": "apps/fepmu-app-e2e",
+      "sourceRoot": "apps/fepmu-app-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/fepmu-e2e/cypress.json",
-            "devServerTarget": "fepmu:serve:development",
-            "tsConfig": "apps/fepmu-e2e/tsconfig.json"
+            "cypressConfig": "apps/fepmu-app-e2e/cypress.json",
+            "devServerTarget": "fepmu-app:serve:development"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "fepmu:serve:production"
+              "devServerTarget": "fepmu-app:serve:production"
             }
           }
         },
@@ -135,22 +174,24 @@
           "builder": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/fepmu-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/fepmu-app-e2e/**/*.{js,ts}"]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["fepmu-app"]
     },
-    "ui-checkbox": {
+    "ui-unit": {
       "projectType": "library",
-      "root": "libs/ui/checkbox",
-      "sourceRoot": "libs/ui/checkbox/src",
+      "root": "libs/ui/unit",
+      "sourceRoot": "libs/ui/unit/src",
       "prefix": "fepmu",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ui/checkbox"],
+          "outputs": ["coverage/libs/ui/unit"],
           "options": {
-            "jestConfig": "libs/ui/checkbox/jest.config.js",
+            "jestConfig": "libs/ui/unit/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -158,97 +199,13 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/ui/checkbox/src/**/*.ts",
-              "libs/ui/checkbox/src/**/*.html"
+              "libs/ui/unit/src/**/*.ts",
+              "libs/ui/unit/src/**/*.html"
             ]
           }
-        },
-        "storybook": {
-          "builder": "@nrwl/storybook:storybook",
-          "options": {
-            "uiFramework": "@storybook/angular",
-            "port": 4400,
-            "config": {
-              "configFolder": "libs/ui/checkbox/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
-        },
-        "build-storybook": {
-          "builder": "@nrwl/storybook:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "uiFramework": "@storybook/angular",
-            "outputPath": "dist/storybook/ui-checkbox",
-            "config": {
-              "configFolder": "libs/ui/checkbox/.storybook"
-            }
-          },
-          "configurations": {
-            "ci": {
-              "quiet": true
-            }
-          }
         }
-      }
-    },
-    "utils": {
-      "root": "libs/utils",
-      "sourceRoot": "libs/utils/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["libs/utils/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/utils"],
-          "options": {
-            "jestConfig": "libs/utils/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "packageManager": "npm"
-  },
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
       },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
+      "tags": []
     }
-  },
-  "defaultProject": "fepmu"
+  }
 }

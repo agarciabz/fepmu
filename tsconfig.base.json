@@ -16,8 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@fepmu/data/three-houses": ["libs/data/three-houses/src/index.ts"],
-      "@fepmu/ui/checkbox": ["libs/ui/checkbox/src/index.ts"],
-      "@fepmu/utils": ["libs/utils/src/index.ts"]
+      "@fepmu/features/three-houses": [
+        "libs/features/three-houses/src/index.ts"
+      ],
+      "@fepmu/ui/unit": ["libs/ui/unit/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
