@@ -26,6 +26,7 @@
     "@taiga-ui/icons": "^2.27.1",
     "@taiga-ui/kit": "^2.27.1",
     "@tinkoff/ng-dompurify": "3.0.0",
+    "angular-cli-ghpages": "^1.0.0",
     "dompurify": "2.2.9",
     "rxjs": "~7.4.0",
     "tslib": "^2.0.0",
