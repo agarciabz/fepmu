@@ -25,7 +25,7 @@ jobs:
         run: npm install
         
       - name: Build
-        run: npm run build
+        run: npx nx build fepmu-app --prod --baseHref=/fepmu/
         
       - name: Generate 404 files
         run: |
