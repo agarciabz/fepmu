@@ -1,8 +1,0 @@
-<div *ngIf="units?.length" class="px-2 py-2 rounded-lg" [ngClass]="bgColor">
-  <div class="pb-2">
-    <ng-content></ng-content>
-  </div>
-  <div class="flex flex-col space-y-2">
-    <fepmu-unit *ngFor="let unit of units" [unit]="unit"></fepmu-unit>
-  </div>
-</div>
