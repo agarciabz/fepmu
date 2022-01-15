@@ -3,7 +3,7 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { Character, Options } from '@fepmu/data/three-houses';
+import { Options } from '@fepmu/data/three-houses';
 
 import { ThreeHousesStore } from './three-houses.store';
 

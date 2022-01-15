@@ -1,5 +1,7 @@
 <div class="p-4 flex flex-col space-y-4">
-  <fepmu-three-houses-form (optionsSubmitted)="pickUnits($event)"></fepmu-three-houses-form>
+  <fepmu-three-houses-form
+    (optionsSubmitted)="pickUnits($event)"
+  ></fepmu-three-houses-form>
   <fepmu-unit-list [units]="selectedUnits | async" [bgColor]="'bg-green-200'">
     Selected units
   </fepmu-unit-list>
