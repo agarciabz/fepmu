@@ -8,16 +8,22 @@ export interface Character {
   faction: string;
 }
 
-export interface Proficiencies {
-  swordProficiency: string;
-  lanceProficiency: string;
-  axeProficiency: string;
-  bowProficiency: string;
-  brawlingProficiency: string;
-  reasonProficiency: string;
-  faithProficiency: string;
-  authorityProficiency: string;
-  armorProficiency: string;
-  ridingProficiency: string;
-  flyingProficiency: string;
-}
+export const skills = [
+  'sword',
+  'lance',
+  'axe',
+  'bow',
+  'brawling',
+  'reason',
+  'faith',
+  'authority',
+  'armor',
+  'riding',
+  'flying',
+] as const;
+
+type AddProficiency<T extends string> = `${T}Proficiency`;
+
+export type Proficiencies = {
+  [P in AddProficiency<typeof skills[number]>]: number;
+};
