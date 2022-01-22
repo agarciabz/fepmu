@@ -1,17 +1,11 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-} from '@angular/core';
-import { Character, Options } from '@fepmu/data/three-houses';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Options } from '@fepmu/data/three-houses';
 
 import { ThreeHousesStore } from './three-houses.store';
 
 @Component({
   selector: 'fepmu-three-houses-container',
   templateUrl: './three-houses-container.component.html',
-  styleUrls: ['./three-houses-container.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ThreeHousesStore],
 })

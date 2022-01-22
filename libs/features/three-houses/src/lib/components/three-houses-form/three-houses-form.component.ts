@@ -1,6 +1,5 @@
 import {
   Component,
-  ViewEncapsulation,
   ChangeDetectionStrategy,
   Output,
   EventEmitter,
@@ -11,8 +10,6 @@ import { Options } from '@fepmu/data/three-houses';
 @Component({
   selector: 'fepmu-three-houses-form',
   templateUrl: './three-houses-form.component.html',
-  styleUrls: ['./three-houses-form.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThreeHousesFormComponent {
@@ -27,7 +24,7 @@ export class ThreeHousesFormComponent {
     allowOtherHouses: [{ value: true, disabled: false }],
     balanceRoster: [{ value: false, disabled: true }],
     includeFreeUpdates: [{ value: true, disabled: false }],
-    includeSeasonPass: [{ value: false, disabled: false }],
+    includeSeasonPass: [{ value: false, disabled: true }],
     rosterSize: [{ value: 12, disabled: false }],
   });
 

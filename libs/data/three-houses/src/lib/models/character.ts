@@ -1,6 +1,7 @@
 import { Gender } from './utils';
 
 export interface Character {
+  id: string;
   name: string;
   defaultClass: string;
   gender: Gender;

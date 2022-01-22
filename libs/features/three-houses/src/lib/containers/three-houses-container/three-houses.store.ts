@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   Character,
   Options,
-  units as UNITLIST,
+  UNITLIST,
   routes as ROUTES,
   freeUpdateCharacters,
   Route,
@@ -49,9 +49,6 @@ export class ThreeHousesStore {
     freeUpdates: boolean,
     seasonPass: boolean
   ) {
-    const ashenWolves = this.initialList.filter(
-      (u) => u.faction === 'Ashen Wolves'
-    );
     const withFreeUpdates = freeUpdates
       ? [...units]
       : [...units.filter((u) => !freeUpdateCharacters.includes(u.name))];

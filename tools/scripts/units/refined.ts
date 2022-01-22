@@ -1,8 +1,6 @@
-import { Character } from '../models';
-
-export const units: { [K: string]: Character } = {
-  mbyleth: {
-    id: 'mbyleth',
+const data = {
+  'byleth (m)': {
+    id: 'byleth (m)',
     name: 'Byleth (M)',
     defaultClass: '',
     gender: 'male',
@@ -21,8 +19,8 @@ export const units: { [K: string]: Character } = {
       swordProficiency: 1,
     },
   },
-  fbyleth: {
-    id: 'fbyleth',
+  'byleth (f)': {
+    id: 'byleth (f)',
     name: 'Byleth (F)',
     defaultClass: '',
     gender: 'female',
@@ -742,5 +740,3 @@ export const units: { [K: string]: Character } = {
     },
   },
 };
-
-export const UNITLIST = Object.entries(units).map(([, value]) => value);

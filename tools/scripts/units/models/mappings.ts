@@ -5,6 +5,7 @@ import {
 } from '../../../../libs/data/three-houses/src';
 
 export const cleanseUnitData = (data: CharacterRaw): Character => ({
+  id: data.ID.toLowerCase(),
   name: data.ID,
   defaultClass: '',
   gender: data.Gender === 'M' ? 'male' : 'female',
@@ -31,7 +32,7 @@ const getProficiencies = (data: CharacterRaw) => {
   };
 };
 
-const mapProficiencies = (data): Proficiencies =>
+const mapProficiencies = (data: any): Proficiencies =>
   Object.fromEntries(
     Object.entries(data).map(([key, value]) => [
       key,
