@@ -25,9 +25,10 @@ const mapUnitsToObject = (data: Character[]) =>
   Object.fromEntries(data.map((d) => [d.id, d]));
 
 const main = async () => {
-  const data: CharacterRaw[] = await readCsv('fe3hdb.csv');
+  const data: CharacterRaw[] = await readCsv('fe3hdb2.csv');
   const refined = mapUnitsToObject(mapUnitsData(data));
-  await fsPromises.writeFile('refined.ts', JSON.stringify(refined));
+  const fileContent = `const data = ${JSON.stringify(refined)}`;
+  await fsPromises.writeFile('refined.ts', fileContent);
 };
 
 main().then();

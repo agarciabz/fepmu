@@ -4,8 +4,15 @@ import {
   Proficiencies,
 } from '../../../../libs/data/three-houses/src';
 
+const getUnitId = (id: string) =>
+  id === 'Byleth (M)'
+    ? 'mbyleth'
+    : id === 'Byleth (F)'
+    ? 'fbyleth'
+    : id.toLowerCase();
+
 export const cleanseUnitData = (data: CharacterRaw): Character => ({
-  id: data.ID.toLowerCase(),
+  id: getUnitId(data.ID),
   name: data.ID,
   defaultClass: '',
   gender: data.Gender === 'M' ? 'male' : 'female',

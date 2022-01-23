@@ -24,7 +24,7 @@ export class ThreeHousesFormComponent {
     allowOtherHouses: [{ value: true, disabled: false }],
     balanceRoster: [{ value: false, disabled: true }],
     includeFreeUpdates: [{ value: true, disabled: false }],
-    includeSeasonPass: [{ value: false, disabled: true }],
+    includeSeasonPass: [{ value: false, disabled: false }],
     rosterSize: [{ value: 12, disabled: false }],
   });
 
