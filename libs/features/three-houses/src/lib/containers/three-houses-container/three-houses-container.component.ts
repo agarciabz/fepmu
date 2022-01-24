@@ -19,4 +19,8 @@ export class ThreeHousesContainerComponent {
   public pickUnits(options: Options) {
     this.store.pickUnits(options);
   }
+
+  public copyToClipboard() {
+    this.store.copyToClipboard();
+  }
 }

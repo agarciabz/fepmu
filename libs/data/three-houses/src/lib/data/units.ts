@@ -824,3 +824,5 @@ export const units: { [K: string]: Character } = {
 };
 
 export const UNITLIST = Object.entries(units).map(([, value]) => value);
+
+export const getUnit = (id: string) => units[id];

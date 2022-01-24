@@ -2,7 +2,7 @@ import { createReadStream, promises as fsPromises } from 'fs';
 import { Character } from '../../../libs/data/three-houses/src';
 import { CharacterRaw, cleanseUnitData } from './models';
 
-const csv = require('csv-parser');
+import csv from 'csv-parser';
 
 /**
  * Return rows of a CSV file as an array.
@@ -25,7 +25,7 @@ const mapUnitsToObject = (data: Character[]) =>
   Object.fromEntries(data.map((d) => [d.id, d]));
 
 const main = async () => {
-  const data: CharacterRaw[] = await readCsv('fe3hdb2.csv');
+  const data: CharacterRaw[] = await readCsv('fe3hdb.csv');
   const refined = mapUnitsToObject(mapUnitsData(data));
   const fileContent = `const data = ${JSON.stringify(refined)}`;
   await fsPromises.writeFile('refined.ts', fileContent);

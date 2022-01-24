@@ -8,18 +8,37 @@ import {
   Route,
   routes,
 } from '@fepmu/data/three-houses';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, map } from 'rxjs';
 
 @Injectable()
 export class ThreeHousesStore {
   public readonly selected$ = new BehaviorSubject<Character[]>([]);
   public readonly available$ = new BehaviorSubject<Character[]>([]);
   public readonly unavailable$ = new BehaviorSubject<Character[]>([]);
+  public readonly route = new BehaviorSubject<string>('');
+  public readonly selectedText$ = combineLatest([
+    this.selected$,
+    this.route,
+  ]).pipe(
+    map(([units, route]) =>
+      [
+        'Fire Emblem Three Houses PMU',
+        route,
+        '',
+        this.getUnitsText(units),
+      ].join('\n')
+    )
+  );
 
   private initialList = UNITLIST;
 
+  public copyToClipboard() {
+    this.selectedText$.subscribe((text) => navigator.clipboard.writeText(text));
+  }
+
   public pickUnits(options: Options) {
     const selected = this.applyFilters(options);
+    this.route.next(options.route);
     this.selected$.next(selected);
   }
 
@@ -122,5 +141,9 @@ export class ThreeHousesStore {
 
   private randomizeGender(): string {
     return Math.floor(Math.random() * 2) === 0 ? 'male' : 'female';
+  }
+
+  private getUnitsText(units: Character[]) {
+    return units.map((u) => u.name).join('\n');
   }
 }
