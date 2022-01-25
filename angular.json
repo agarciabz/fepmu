@@ -8,20 +8,14 @@
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/data/three-houses/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/data/three-houses/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/data/three-houses"
-          ],
+          "outputs": ["coverage/libs/data/three-houses"],
           "options": {
             "jestConfig": "libs/data/three-houses/jest.config.js",
             "passWithNoTests": true
@@ -38,9 +32,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/features/three-houses"
-          ],
+          "outputs": ["coverage/libs/features/three-houses"],
           "options": {
             "jestConfig": "libs/features/three-houses/jest.config.js",
             "passWithNoTests": true
@@ -66,9 +58,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/fepmu-app",
             "index": "apps/fepmu-app/src/index.html",
@@ -154,9 +144,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/fepmu-app"
-          ],
+          "outputs": ["coverage/apps/fepmu-app"],
           "options": {
             "jestConfig": "apps/fepmu-app/jest.config.js",
             "passWithNoTests": true
@@ -187,20 +175,14 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/fepmu-app-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/fepmu-app-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "fepmu-app"
-      ]
+      "implicitDependencies": ["fepmu-app"]
     },
     "ui-unit": {
       "projectType": "library",
@@ -210,9 +192,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ui/unit"
-          ],
+          "outputs": ["coverage/libs/ui/unit"],
           "options": {
             "jestConfig": "libs/ui/unit/jest.config.js",
             "passWithNoTests": true

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   Character,
   Options,
@@ -8,6 +8,7 @@ import {
   Route,
   routes,
 } from '@fepmu/data/three-houses';
+import { TuiNotificationsService } from '@taiga-ui/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 
 @Injectable()
@@ -32,8 +33,17 @@ export class ThreeHousesStore {
 
   private initialList = UNITLIST;
 
+  constructor(
+    @Inject(TuiNotificationsService)
+    private readonly notifications: TuiNotificationsService
+  ) {}
+
   public copyToClipboard() {
-    this.selectedText$.subscribe((text) => navigator.clipboard.writeText(text));
+    this.selectedText$.subscribe((text) =>
+      navigator.clipboard
+        .writeText(text)
+        .then(() => this.notifications.show('Copied to clipboard'))
+    );
   }
 
   public pickUnits(options: Options) {
