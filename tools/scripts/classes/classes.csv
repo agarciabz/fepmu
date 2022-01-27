@@ -1,0 +1,22 @@
+ID,ReqLevel,ReqSkill,ReqRank,OneReq,ReqGender,CharacterExclusive,UnitType,SwordProficiency,LanceProficiency,AxeProficiency,BowProficiency,BrawlingProficiency,ReasonProficiency,FaithProficiency,AuthorityProficiency,ArmorProficiency,RidingProficiency,FlyingProficiency,GrowthHP,GrowthStr,GrowthMag,GrowthDex,GrowthSpd,GrowthLck,GrowthDef,GrowthRes,GrowthCha,Movement,
+Dancer,0,,,-,"M, F",,Magic,2,-,-,-,-,-,-,2,-,-,-,20,-5,-,-,-,-,-5,-5,10,4,
+Swordmaster,20,Sword,A,-,"M, F",,,3,-,-,-,-,-,-,-,-,-,-,25,10,-,-,20,-,-,-5,5,5,55
+Assassin,20,"Sword, Bow","B, C",-,"M, F",,,3,-,-,2,-,-,-,-,-,-,-,20,-,-,20,20,-,-,-,-,6,
+Fortress Knight,20,"Axe, Armor","B, B",-,"M, F",,Armor,-,2,3,-,-,-,-,-,3,-,-,30,10,-,-,-10,-,15,-,5,4,
+Enlightened One,30,,,-,"M, F","BylethM, BylethF",Magic,3,-,-,-,2,-,3,3,-,-,-,20,10,10,-,-,-,5,-,5,6,
+Emperor,30,,,-,"M, F",Edelgard,Armor,-,-,3,-,-,-,-,3,3,-,-,30,10,10,-,-,-,5,5,10,5,
+Great Lord,30,,,-,"M, F",Dimitri,,3,3,-,-,-,-,-,3,-,-,-,30,10,-,10,-,-,5,-,10,6,
+Barbarossa,30,,,-,"M, F",Claude,Flying,-,-,-,3,-,-,-,3,-,-,3,30,15,-,-,10,-,5,-,10,8,
+Falcon Knight,30,"Sword, Lance, Flying","C, A, B+",-,F,,Flying,3,3,-,-,-,-,-,-,-,-,3,30,10,-,-,20,-,-,5,10,9,
+Wyvern Lord,30,"Lance, Axe, Flying","C, A, A",-,"M, F",,Flying,-,3,3,-,-,-,-,-,-,-,3,30,15,-5,-,10,-,5,-,5,8,60
+Mortal Savant,30,"Sword, Reason","A, B+",-,"M, F",,Magic,3,-,-,-,-,3,-,-,-,-,-,20,10,10,-,-10,10,-,-,5,6,45
+Great Knight,30,"Axe, Armor, Riding","B+, A, B+",-,"M, F",,"Riding, Armor",-,3,3,-,-,-,-,-,3,-,-,30,10,-,-,-10,-,5,-5,5,7,
+Bow Knight,30,"Lance, Bow, Riding","C, A, A",-,"M, F",,Riding,-,3,-,3,-,-,-,-,-,3,-,10,-,-,-,-5,-,-,-,5,8,
+Dark Knight,30,"Lance, Reason, Riding","C, B+, A",-,"M, F",,"Riding, Magic",-,3,-,-,-,3,-,-,-,3,-,10,5,10,-,-5,-,5,10,5,7,
+Holy Knight,30,"Lance, Faith, Riding","C, B+, A",-,"M, F",,"Riding, Magic",-,3,-,-,-,-,3,-,-,3,-,10,-,10,-,-5,10,5,10,10,7,
+War Master,30,"Axe, Brawling","A, A",-,M,,,-,-,3,-,3,-,-,-,-,-,-,40,15,-,-,10,-,-,-,5,6,
+Gremory,30,"Reason, Faith","A, A",-,F,,Magic,-,-,-,-,-,3,3,-,-,-,-,10,-,10,10,-,-,-,5,10,6,
+Trickster,0,"Sword, Faith","B, B",-,"M, F",,Magic,,,,,,,,,,,,,,,,,,,,,,
+War Monk,0,"Brawling, Faith","B+, C+",-,"M, F",,Magic,,,,,,,,,,,,,,,,,,,,,,
+Dark Flier,0,"Reason, Flying","B+, C+",-,"M, F",,"Flying, Magic",,,,,,,,,,,,,,,,,,,,,,
+Valkyrie,0,"Reason, Riding","B, B",-,"M, F",,"Riding, Magic",,,,,,,,,,,,,,,,,,,,,,
