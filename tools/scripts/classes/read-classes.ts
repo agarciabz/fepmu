@@ -6,7 +6,7 @@ import { CharacterClass } from '../../../libs/data/three-houses/src';
 const mapClassData = (classes: ClassRaw[]): CharacterClass[] =>
   classes.map(cleansClassData).map((value, index) => ({
     ...value,
-    id: index,
+    id: index + 1,
   }));
 
 const mapUnitsToObject = (data: CharacterClass[]) =>

@@ -14,5 +14,5 @@ export const mapClassData = (data: ClassRaw): CharacterClass => ({
   ),
   requiredSkills: split(data.ReqSkill),
   unitType: split(data.UnitType),
-  fromSeasonPass: false,
+  fromSeasonPass: data.OtherReq === 'DLC',
 });

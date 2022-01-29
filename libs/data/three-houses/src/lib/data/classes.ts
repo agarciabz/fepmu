@@ -1,8 +1,8 @@
 import { CharacterClass } from '../models';
 
-export const classes: { [K: string]: CharacterClass } = {
+const classes: { [K: string]: CharacterClass } = {
   dancer: {
-    id: 0,
+    id: 1,
     code: 'dancer',
     name: 'Dancer',
     exclusiveTo: [''],
@@ -12,7 +12,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   swordmaster: {
-    id: 1,
+    id: 2,
     code: 'swordmaster',
     name: 'Swordmaster',
     exclusiveTo: [''],
@@ -22,7 +22,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   assassin: {
-    id: 2,
+    id: 3,
     code: 'assassin',
     name: 'Assassin',
     exclusiveTo: [''],
@@ -32,7 +32,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   fortressknight: {
-    id: 3,
+    id: 4,
     code: 'fortressknight',
     name: 'Fortress Knight',
     exclusiveTo: [''],
@@ -42,7 +42,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   enlightenedone: {
-    id: 4,
+    id: 5,
     code: 'enlightenedone',
     name: 'Enlightened One',
     exclusiveTo: ['bylethm', 'bylethf'],
@@ -52,7 +52,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   emperor: {
-    id: 5,
+    id: 6,
     code: 'emperor',
     name: 'Emperor',
     exclusiveTo: ['edelgard'],
@@ -62,7 +62,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   greatlord: {
-    id: 6,
+    id: 7,
     code: 'greatlord',
     name: 'Great Lord',
     exclusiveTo: ['dimitri'],
@@ -72,7 +72,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   barbarossa: {
-    id: 7,
+    id: 8,
     code: 'barbarossa',
     name: 'Barbarossa',
     exclusiveTo: ['claude'],
@@ -82,7 +82,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   falconknight: {
-    id: 8,
+    id: 9,
     code: 'falconknight',
     name: 'Falcon Knight',
     exclusiveTo: [''],
@@ -92,7 +92,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   wyvernlord: {
-    id: 9,
+    id: 10,
     code: 'wyvernlord',
     name: 'Wyvern Lord',
     exclusiveTo: [''],
@@ -102,7 +102,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   mortalsavant: {
-    id: 10,
+    id: 11,
     code: 'mortalsavant',
     name: 'Mortal Savant',
     exclusiveTo: [''],
@@ -112,7 +112,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   greatknight: {
-    id: 11,
+    id: 12,
     code: 'greatknight',
     name: 'Great Knight',
     exclusiveTo: [''],
@@ -122,7 +122,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   bowknight: {
-    id: 12,
+    id: 13,
     code: 'bowknight',
     name: 'Bow Knight',
     exclusiveTo: [''],
@@ -132,7 +132,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   darkknight: {
-    id: 13,
+    id: 14,
     code: 'darkknight',
     name: 'Dark Knight',
     exclusiveTo: [''],
@@ -142,7 +142,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   holyknight: {
-    id: 14,
+    id: 15,
     code: 'holyknight',
     name: 'Holy Knight',
     exclusiveTo: [''],
@@ -152,7 +152,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   warmaster: {
-    id: 15,
+    id: 16,
     code: 'warmaster',
     name: 'War Master',
     exclusiveTo: [''],
@@ -162,7 +162,7 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   gremory: {
-    id: 16,
+    id: 17,
     code: 'gremory',
     name: 'Gremory',
     exclusiveTo: [''],
@@ -172,41 +172,51 @@ export const classes: { [K: string]: CharacterClass } = {
     fromSeasonPass: false,
   },
   trickster: {
-    id: 17,
+    id: 18,
     code: 'trickster',
     name: 'Trickster',
     exclusiveTo: [''],
     requiredGender: ['male', 'female'],
     requiredSkills: ['sword', 'faith'],
     unitType: ['magic'],
-    fromSeasonPass: false,
+    fromSeasonPass: true,
   },
   warmonk: {
-    id: 18,
+    id: 19,
     code: 'warmonk',
     name: 'War Monk',
     exclusiveTo: [''],
     requiredGender: ['male', 'female'],
     requiredSkills: ['brawling', 'faith'],
     unitType: ['magic'],
-    fromSeasonPass: false,
+    fromSeasonPass: true,
   },
   darkflier: {
-    id: 19,
+    id: 20,
     code: 'darkflier',
     name: 'Dark Flier',
     exclusiveTo: [''],
     requiredGender: ['male', 'female'],
     requiredSkills: ['reason', 'flying'],
     unitType: ['flying', 'magic'],
-    fromSeasonPass: false,
+    fromSeasonPass: true,
   },
   valkyrie: {
-    id: 20,
+    id: 21,
     code: 'valkyrie',
     name: 'Valkyrie',
     exclusiveTo: [''],
     requiredGender: ['male', 'female'],
+    requiredSkills: ['reason', 'riding'],
+    unitType: ['riding', 'magic'],
+    fromSeasonPass: true,
+  },
+  deathknight: {
+    id: 22,
+    code: 'deathknight',
+    name: 'Death Knight',
+    exclusiveTo: ['jeritza'],
+    requiredGender: ['male'],
     requiredSkills: ['reason', 'riding'],
     unitType: ['riding', 'magic'],
     fromSeasonPass: false,
