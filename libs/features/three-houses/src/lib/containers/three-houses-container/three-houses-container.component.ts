@@ -11,8 +11,8 @@ import { ThreeHousesStore } from './three-houses.store';
 })
 export class ThreeHousesContainerComponent {
   public selectedUnits = this.store.selected$.asObservable();
-  public availableUnits = this.store.available$;
-  public unavailableUnits = this.store.unavailable$;
+  // public availableUnits = this.store.available$;
+  // public unavailableUnits = this.store.unavailable$;
 
   constructor(private store: ThreeHousesStore) {}
 

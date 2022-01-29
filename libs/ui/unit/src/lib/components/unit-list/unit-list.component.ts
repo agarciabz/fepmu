@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
-import { Character } from '@fepmu/data/three-houses';
+import { Pick } from '@fepmu/data/three-houses';
 
 @Component({
   selector: 'fepmu-unit-list',
@@ -15,7 +15,7 @@ import { Character } from '@fepmu/data/three-houses';
 })
 export class UnitListComponent {
   @Input()
-  public units: Character[] | null = [];
+  public units: Pick[] | null = [];
 
   @Input()
   public bgColor = 'bg-slate-200';

@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
-import { Character } from '@fepmu/data/three-houses';
+import { Character, CharacterClass } from '@fepmu/data/three-houses';
 
 @Component({
   selector: 'fepmu-unit',
@@ -16,4 +16,7 @@ import { Character } from '@fepmu/data/three-houses';
 export class UnitComponent {
   @Input()
   public unit: Character | undefined;
+
+  @Input()
+  public class: CharacterClass | undefined;
 }

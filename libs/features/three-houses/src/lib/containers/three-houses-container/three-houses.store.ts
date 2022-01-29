@@ -2,20 +2,23 @@ import { Inject, Injectable } from '@angular/core';
 import {
   Character,
   Options,
+  Pick,
   UNITLIST,
+  CLASSLIST,
   routes as ROUTES,
   freeUpdateCharacters,
   Route,
   routes,
+  CharacterClass,
 } from '@fepmu/data/three-houses';
 import { TuiNotificationsService } from '@taiga-ui/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 
 @Injectable()
 export class ThreeHousesStore {
-  public readonly selected$ = new BehaviorSubject<Character[]>([]);
-  public readonly available$ = new BehaviorSubject<Character[]>([]);
-  public readonly unavailable$ = new BehaviorSubject<Character[]>([]);
+  public readonly selected$ = new BehaviorSubject<Pick[]>([]);
+  // public readonly available$ = new BehaviorSubject<Character[]>([]);
+  // public readonly unavailable$ = new BehaviorSubject<Character[]>([]);
   public readonly route = new BehaviorSubject<string>('');
   public readonly selectedText$ = combineLatest([
     this.selected$,
@@ -26,12 +29,13 @@ export class ThreeHousesStore {
         'Fire Emblem Three Houses PMU',
         route,
         '',
-        this.getUnitsText(units),
+        this.getUnitsText(units.map((u) => u.unit)),
       ].join('\n')
     )
   );
 
   private initialList = UNITLIST;
+  public initialClassList = CLASSLIST;
 
   constructor(
     @Inject(TuiNotificationsService)
@@ -52,7 +56,7 @@ export class ThreeHousesStore {
     this.selected$.next(selected);
   }
 
-  private applyFilters(options: Options): Character[] {
+  private applyFilters(options: Options): Pick[] {
     const [avatar, ...nonAvatarUnits] = this.filterAvatarGender(
       options.avatarGender
     );
@@ -68,9 +72,16 @@ export class ThreeHousesStore {
       options.allowOtherHouses
     );
     const selected = [
+      avatar,
       ...this.randomizeUnits(selectable, options.rosterSize, options.route),
     ];
-    return [avatar, ...selected];
+
+    return selected.map((unit) => ({
+      unit,
+      class: options.randomizeClasses
+        ? this.getRandomClass(unit, options.includeSeasonPass)
+        : undefined,
+    }));
   }
 
   private filterByGameUpdates(
@@ -147,6 +158,25 @@ export class ThreeHousesStore {
       count--;
     }
     return route === 'Silver Snow' ? [...picked] : [lord, ...picked];
+  }
+
+  private getRandomClass(unit: Character, seasonPass: boolean): CharacterClass {
+    const exclusvieClasses = this.getExclusiveClasses(unit);
+    const selectableClasses = [
+      ...this.initialClassList.filter(
+        (cl) => !cl.fromSeasonPass || (cl.fromSeasonPass && seasonPass)
+      ),
+      ...exclusvieClasses,
+    ];
+    return selectableClasses[
+      Math.floor(Math.random() * selectableClasses.length - 1)
+    ];
+  }
+
+  public getExclusiveClasses(unit: Character): CharacterClass[] {
+    return this.initialClassList.filter((cl) =>
+      cl.exclusiveTo.includes(unit.id)
+    );
   }
 
   private randomizeGender(): string {

@@ -3,6 +3,10 @@
     <ng-content></ng-content>
   </div>
   <div class="flex flex-col space-y-2">
-    <fepmu-unit *ngFor="let unit of units" [unit]="unit"></fepmu-unit>
+    <fepmu-unit
+      *ngFor="let unit of units"
+      [unit]="unit.unit"
+      [class]="unit.class"
+    ></fepmu-unit>
   </div>
 </div>

@@ -19,7 +19,7 @@ export class ThreeHousesFormComponent {
   public formGroup = this.fb.group({
     route: ['Azure Moon'],
     avatarGender: ['male'],
-    randomizeClasses: [{ value: false, disabled: true }],
+    randomizeClasses: [{ value: false, disabled: false }],
     allowInviableBuilds: [{ value: false, disabled: true }],
     allowOtherHouses: [{ value: true, disabled: false }],
     balanceRoster: [{ value: false, disabled: true }],
