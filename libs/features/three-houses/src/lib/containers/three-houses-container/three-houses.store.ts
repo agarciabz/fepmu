@@ -24,12 +24,12 @@ export class ThreeHousesStore {
     this.selected$,
     this.route,
   ]).pipe(
-    map(([units, route]) =>
+    map(([picks, route]) =>
       [
         'Fire Emblem Three Houses PMU',
         route,
         '',
-        this.getUnitsText(units.map((u) => u.unit)),
+        this.getUnitsText(picks),
       ].join('\n')
     )
   );
@@ -165,13 +165,13 @@ export class ThreeHousesStore {
     const selectableClasses = [
       ...this.initialClassList
         .filter((cl) => !cl.fromSeasonPass || (cl.fromSeasonPass && seasonPass))
-        .filter((cl) => cl.exclusiveTo.length === 0),
+        .filter((cl) => cl.exclusiveTo.length === 0)
+        .filter((cl) => cl.requiredGender.includes(unit.gender)),
       ...exclusiveClasses,
     ];
 
     const random = Math.floor(Math.random() * (selectableClasses.length - 1));
     const newLocal = selectableClasses[random];
-    console.debug(selectableClasses);
     return newLocal;
   }
 
@@ -185,7 +185,9 @@ export class ThreeHousesStore {
     return Math.floor(Math.random() * 2) === 0 ? 'male' : 'female';
   }
 
-  private getUnitsText(units: Character[]) {
-    return units.map((u) => u.name).join('\n');
+  private getUnitsText(units: Pick[]) {
+    return units
+      .map((u) => `${u.unit.name}${u.class ? `: ${u.class.name}` : ''}`)
+      .join('\n');
   }
 }
