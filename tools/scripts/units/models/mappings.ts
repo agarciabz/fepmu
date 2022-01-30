@@ -6,9 +6,9 @@ import {
 
 const getUnitId = (id: string) =>
   id === 'Byleth (M)'
-    ? 'mbyleth'
+    ? 'bylethm'
     : id === 'Byleth (F)'
-    ? 'fbyleth'
+    ? 'bylethf'
     : id.toLowerCase();
 
 export const cleanseUnitData = (data: CharacterRaw): Character => ({

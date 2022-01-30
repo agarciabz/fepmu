@@ -153,7 +153,7 @@ export class ThreeHousesStore {
     let count = pickNum;
     let pos;
     while (count > 0) {
-      pos = Math.floor(Math.random() * nonLordUnits.length - 1);
+      pos = Math.floor(Math.random() * (nonLordUnits.length - 1));
       picked.push(nonLordUnits.splice(pos, 1)[0]);
       count--;
     }
@@ -161,16 +161,18 @@ export class ThreeHousesStore {
   }
 
   private getRandomClass(unit: Character, seasonPass: boolean): CharacterClass {
-    const exclusvieClasses = this.getExclusiveClasses(unit);
+    const exclusiveClasses = this.getExclusiveClasses(unit);
     const selectableClasses = [
-      ...this.initialClassList.filter(
-        (cl) => !cl.fromSeasonPass || (cl.fromSeasonPass && seasonPass)
-      ),
-      ...exclusvieClasses,
+      ...this.initialClassList
+        .filter((cl) => !cl.fromSeasonPass || (cl.fromSeasonPass && seasonPass))
+        .filter((cl) => cl.exclusiveTo.length === 0),
+      ...exclusiveClasses,
     ];
-    return selectableClasses[
-      Math.floor(Math.random() * selectableClasses.length - 1)
-    ];
+
+    const random = Math.floor(Math.random() * (selectableClasses.length - 1));
+    const newLocal = selectableClasses[random];
+    console.debug(selectableClasses);
+    return newLocal;
   }
 
   public getExclusiveClasses(unit: Character): CharacterClass[] {

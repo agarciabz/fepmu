@@ -2,7 +2,9 @@ import { ClassRaw } from '.';
 import { CharacterClass } from '../../../../libs/data/three-houses/src';
 
 const split = (text: string): string[] =>
-  text.replace(' ', '').toLowerCase().split(',');
+  ['-', '', ' '].includes(text)
+    ? []
+    : text.replace(' ', '').toLowerCase().split(',');
 
 export const mapClassData = (data: ClassRaw): CharacterClass => ({
   id: 0,

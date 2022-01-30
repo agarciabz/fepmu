@@ -1,8 +1,8 @@
 import { Character } from '../models';
 
 export const units: { [K: string]: Character } = {
-  mbyleth: {
-    id: 'mbyleth',
+  bylethm: {
+    id: 'bylethm',
     name: 'Byleth (M)',
     defaultClass: '',
     gender: 'male',
@@ -21,8 +21,8 @@ export const units: { [K: string]: Character } = {
       swordProficiency: 1,
     },
   },
-  fbyleth: {
-    id: 'fbyleth',
+  bylethf: {
+    id: 'bylethf',
     name: 'Byleth (F)',
     defaultClass: '',
     gender: 'female',

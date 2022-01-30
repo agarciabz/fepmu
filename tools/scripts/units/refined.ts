@@ -1,6 +1,6 @@
 const data = {
-  mbyleth: {
-    id: 'mbyleth',
+  bylethm: {
+    id: 'bylethm',
     name: 'Byleth (M)',
     defaultClass: '',
     gender: 'male',
@@ -19,8 +19,8 @@ const data = {
       swordProficiency: 1,
     },
   },
-  fbyleth: {
-    id: 'fbyleth',
+  bylethf: {
+    id: 'bylethf',
     name: 'Byleth (F)',
     defaultClass: '',
     gender: 'female',
