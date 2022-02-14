@@ -6,13 +6,14 @@ import {
   UNITLIST,
   CLASSLIST,
   routes as ROUTES,
-  freeUpdateCharacters,
   Route,
   routes,
   CharacterClass,
 } from '@fepmu/data/three-houses';
 import { TuiNotificationsService } from '@taiga-ui/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { filterUnit, splitAvatarUnit } from '../../utils/filters';
+import { randomizeGender } from '../../utils/randomize-gender';
 
 @Injectable()
 export class ThreeHousesStore {
@@ -57,20 +58,20 @@ export class ThreeHousesStore {
   }
 
   private applyFilters(options: Options): Pick[] {
-    const [avatar, ...nonAvatarUnits] = this.filterAvatarGender(
-      options.avatarGender
+    const { avatarGender: genderOp } = options;
+
+    const avatarGender = genderOp === 'random' ? randomizeGender() : genderOp;
+    const [avatar, ...nonAvatarUnits] = splitAvatarUnit(
+      this.initialList,
+      avatarGender
     );
-    const selectable = this.filterByRoute(
-      [
-        ...this.filterByGameUpdates(
-          nonAvatarUnits,
-          options.includeFreeUpdates,
-          options.includeSeasonPass
-        ),
-      ],
-      options.route,
-      options.allowOtherHouses
+
+    const route = ROUTES.find((r) => r.name === options.route) as Route;
+
+    const selectable = nonAvatarUnits.filter((unit) =>
+      filterUnit(unit, route, options)
     );
+
     const selected = [
       avatar,
       ...this.randomizeUnits(selectable, options.rosterSize, options.route),
@@ -82,62 +83,6 @@ export class ThreeHousesStore {
         ? this.getRandomClass(unit, options.includeSeasonPass)
         : undefined,
     }));
-  }
-
-  private filterByGameUpdates(
-    units: Character[],
-    freeUpdates: boolean,
-    seasonPass: boolean
-  ) {
-    const withFreeUpdates = freeUpdates
-      ? [...units]
-      : [...units.filter((u) => !freeUpdateCharacters.includes(u.name))];
-    let res = withFreeUpdates;
-    if (!seasonPass) {
-      res = [...res.filter((u) => u.faction !== 'Ashen Wolves')];
-    }
-    return res;
-  }
-
-  private filterAvatarGender(genderOption: string) {
-    const otherUnits: Character[] = [
-      ...this.initialList.filter(
-        (u) => !['Byleth (M)', 'Byleth (F)'].includes(u.name)
-      ),
-    ];
-    let avatar: Character;
-    const gender =
-      genderOption === 'random' ? this.randomizeGender() : genderOption;
-    if (gender === 'male') {
-      avatar = this.initialList.find(
-        (u) => u.name === 'Byleth (M)'
-      ) as Character;
-    } else {
-      avatar = this.initialList.find(
-        (u) => u.name === 'Byleth (F)'
-      ) as Character;
-    }
-    return [avatar, ...otherUnits];
-  }
-
-  private filterByRoute(
-    units: Character[],
-    routeName: string,
-    otherHouses: boolean
-  ) {
-    const route = ROUTES.find((r) => r.name === routeName) as Route;
-    return otherHouses
-      ? [...units.filter((u) => !route.unavailableCharacters.includes(u.name))]
-      : [
-          ...units
-            .filter(
-              (u) =>
-                u.faction === route.house ||
-                u.faction === 'Church of Seiros' ||
-                u.faction === 'Ashen Wolves'
-            )
-            .filter((u) => !route.unavailableCharacters.includes(u.name)),
-        ];
   }
 
   private randomizeUnits(units: Character[], size: number, route: string) {
@@ -179,10 +124,6 @@ export class ThreeHousesStore {
     return this.initialClassList.filter((cl) =>
       cl.exclusiveTo.includes(unit.id)
     );
-  }
-
-  private randomizeGender(): string {
-    return Math.floor(Math.random() * 2) === 0 ? 'male' : 'female';
   }
 
   private getUnitsText(units: Pick[]) {

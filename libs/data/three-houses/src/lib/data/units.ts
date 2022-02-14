@@ -823,6 +823,8 @@ export const units: { [K: string]: Character } = {
   },
 };
 
+export type UnitNames = keyof typeof units;
+
 export const UNITLIST = Object.entries(units).map(([, value]) => value);
 
 export const getUnit = (id: string) => units[id];
