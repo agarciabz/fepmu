@@ -9,10 +9,12 @@ import {
   FrequencyMap,
   getClassesByProficiencies,
   getFrequencyMap,
-  getInfrecuentWeapons,
+  getInfrecuentSkills,
   getLowestFreqNumber,
   getUnitProficiencies,
   SkillMap,
+  createSkillMap,
+  getBalancedClasses,
 } from './balance';
 
 const initializeTestMap: () => SkillMap = () => {
@@ -28,6 +30,22 @@ const initializeTestMap: () => SkillMap = () => {
   map.set('reasonProficiency', 1);
   map.set('ridingProficiency', 1);
   map.set('swordProficiency', 3);
+  return map;
+};
+
+const initializeTestMap2: () => SkillMap = () => {
+  // Exclude authority
+  const map: SkillMap = new Map();
+  map.set('armorProficiency', 0);
+  map.set('axeProficiency', 2);
+  map.set('bowProficiency', 0);
+  map.set('brawlingProficiency', 2);
+  map.set('faithProficiency', 1);
+  map.set('flyingProficiency', 3);
+  map.set('lanceProficiency', 2);
+  map.set('reasonProficiency', 1);
+  map.set('ridingProficiency', 0);
+  map.set('swordProficiency', 1);
   return map;
 };
 
@@ -61,7 +79,7 @@ describe('balance', () => {
         'flyingProficiency',
       ];
 
-      const result = getInfrecuentWeapons(map);
+      const result = getInfrecuentSkills(map);
 
       expect(result).toEqual(expected);
     });
@@ -93,6 +111,8 @@ describe('balance', () => {
         getClass('falconknight'),
         getClass('wyvernlord'),
         getClass('darkflier'),
+        getClass('barbarossa'),
+        getClass('dancer'),
       ];
       const expectedClassesNames = expectedClasses.map((c) => c.code).sort();
 
@@ -116,6 +136,53 @@ describe('balance', () => {
       const result = getUnitProficiencies(unit);
 
       expect(result).toEqual(expected);
+    });
+  });
+
+  describe('createSkillMap', () => {
+    it('should create a map counting skills', () => {
+      const classes = [
+        getClass('warmaster'),
+        getClass('warmonk'),
+        getClass('falconknight'),
+        getClass('wyvernlord'),
+        getClass('darkflier'),
+      ];
+      const expectedMap = initializeTestMap2();
+
+      const result = createSkillMap(classes);
+
+      expect(result).toEqual(expectedMap);
+    });
+  });
+
+  describe('getBalancedClasses', () => {
+    it('should get classes that compensate the current picked classes', () => {
+      const classes = [
+        getClass('warmaster'),
+        getClass('warmonk'),
+        getClass('falconknight'),
+        getClass('wyvernlord'),
+        getClass('darkflier'),
+      ];
+      const expectedClasses = [
+        'fortressknight',
+        'emperor',
+        'greatknight',
+        'bowknight',
+        'assassin',
+        'darkknight',
+        'holyknight',
+        'valkyrie',
+        'deathknight',
+        'barbarossa',
+      ].sort();
+
+      const result = getBalancedClasses(classes)
+        .map((cl) => cl.code)
+        .sort();
+
+      expect(result).toEqual(expectedClasses);
     });
   });
 });

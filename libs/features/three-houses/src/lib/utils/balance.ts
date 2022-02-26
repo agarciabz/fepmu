@@ -1,6 +1,7 @@
 import {
   Character,
   CharacterClass,
+  CLASSLIST,
   ProficiencyLevel,
   ProficiencyName,
 } from '@fepmu/data/three-houses';
@@ -8,7 +9,7 @@ import {
 export type SkillMap = Map<string, number>;
 export type FrequencyMap = Map<number, string[]>;
 
-export const initializeMap: () => SkillMap = () => {
+export const initializeSkillMap: () => SkillMap = () => {
   // Exclude authority
   const map: SkillMap = new Map();
   map.set('armorProficiency', 0);
@@ -27,7 +28,7 @@ export const initializeMap: () => SkillMap = () => {
 /**
  * Get weapon types with less frecuency
  */
-export const getInfrecuentWeapons: (map: SkillMap) => string[] = (map) => {
+export const getInfrecuentSkills: (map: SkillMap) => string[] = (map) => {
   const frequency: FrequencyMap = getFrequencyMap(map);
   const lowestFreq = getLowestFreqNumber(frequency);
   return frequency.get(lowestFreq) || [];
@@ -75,3 +76,34 @@ export const getUnitProficiencies: (unit: Character) => ProficiencyName[] = (
   Object.entries(unit.proficiencies)
     .filter(([, profLevel]) => profLevel === ProficiencyLevel.HIGH)
     .map(([profName]) => profName) as ProficiencyName[];
+
+/**
+ * From a list of classes, create a map that counts each skill
+ */
+export const createSkillMap: (classes: CharacterClass[]) => SkillMap = (
+  classes
+) =>
+  classes.reduce((map, cl) => {
+    cl.requiredSkills.forEach((skill) => {
+      const skillName = `${skill}Proficiency`;
+      const count = map.get(skillName) || 0;
+      map.set(skillName, count + 1);
+    });
+    return map;
+  }, initializeSkillMap());
+
+/**
+ * Get classes whose skills are less used in the current picked classes.
+ */
+export const getBalancedClasses: (
+  current: CharacterClass[]
+) => CharacterClass[] = (current) => {
+  let res: CharacterClass[] = [];
+  const skillMap = createSkillMap(current);
+  const balancedSkills = getInfrecuentSkills(skillMap).map((proficiency) =>
+    proficiency.replace('Proficiency', '')
+  );
+  const balancedClasses = getClassesByProficiencies(balancedSkills, CLASSLIST);
+  res = balancedClasses;
+  return res;
+};
