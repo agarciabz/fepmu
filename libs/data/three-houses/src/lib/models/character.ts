@@ -25,6 +25,14 @@ export const skills = [
 
 type AddProficiency<T extends string> = `${T}Proficiency`;
 
+export type ProficiencyName = AddProficiency<typeof skills[number]>;
+
 export type Proficiencies = {
-  [P in AddProficiency<typeof skills[number]>]: number;
+  [P in ProficiencyName]: number;
 };
+
+export enum ProficiencyLevel {
+  HIGH = 1,
+  REGULAR = 0,
+  LOW = -1,
+}

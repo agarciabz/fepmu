@@ -115,9 +115,8 @@ export class ThreeHousesStore {
       ...exclusiveClasses,
     ];
 
-    const random = Math.floor(Math.random() * (selectableClasses.length - 1));
-    const newLocal = selectableClasses[random];
-    return newLocal;
+    const random = Math.floor(Math.random() * selectableClasses.length);
+    return selectableClasses[random];
   }
 
   public getExclusiveClasses(unit: Character): CharacterClass[] {
