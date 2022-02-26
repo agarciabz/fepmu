@@ -1,4 +1,3 @@
-import { Route } from './game';
 import { Gender } from './utils';
 
 export interface Options {

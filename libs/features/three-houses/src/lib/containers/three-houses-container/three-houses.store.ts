@@ -98,7 +98,7 @@ export class ThreeHousesStore {
     let count = pickNum;
     let pos;
     while (count > 0) {
-      pos = Math.floor(Math.random() * (nonLordUnits.length - 1));
+      pos = Math.floor(Math.random() * nonLordUnits.length);
       picked.push(nonLordUnits.splice(pos, 1)[0]);
       count--;
     }
