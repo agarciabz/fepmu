@@ -24,8 +24,6 @@ export const initializeMap: () => SkillMap = () => {
   return map;
 };
 
-const weaponCount = initializeMap();
-
 /**
  * Get weapon types with less frecuency
  */

@@ -4,7 +4,6 @@ import {
   getClass,
   getUnit,
 } from '@fepmu/data/three-houses';
-import exp = require('constants');
 
 import {
   FrequencyMap,

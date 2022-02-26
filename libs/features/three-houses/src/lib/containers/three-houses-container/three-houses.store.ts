@@ -9,11 +9,26 @@ import {
   Route,
   routes,
   CharacterClass,
+  Gender,
 } from '@fepmu/data/three-houses';
 import { TuiNotificationsService } from '@taiga-ui/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { filterUnit, splitAvatarUnit } from '../../utils/filters';
 import { randomizeGender } from '../../utils/randomize-gender';
+
+const filterSeasonPass = (
+  cl: CharacterClass,
+  includeSeasonPass: boolean
+): boolean => !cl.fromSeasonPass || (cl.fromSeasonPass && includeSeasonPass);
+
+const filterExclusives = (cl: CharacterClass): boolean =>
+  cl.exclusiveTo.length === 0;
+
+const filterByGender = (cl: CharacterClass, gender: Gender): boolean =>
+  cl.requiredGender.includes(gender);
+
+const filterBalanced = (cl: CharacterClass, balanceRoster: boolean): boolean =>
+  !balanceRoster;
 
 @Injectable()
 export class ThreeHousesStore {
@@ -77,12 +92,16 @@ export class ThreeHousesStore {
       ...this.randomizeUnits(selectable, options.rosterSize, options.route),
     ];
 
-    return selected.map((unit) => ({
-      unit,
-      class: options.randomizeClasses
-        ? this.getRandomClass(unit, options.includeSeasonPass)
-        : undefined,
-    }));
+    return selected.reduce((picks: Pick[], unit: Character) => {
+      const pick: Pick = {
+        unit,
+        class: options.randomizeClasses
+          ? this.getRandomClass(unit, options, picks)
+          : undefined,
+      };
+      picks.push(pick);
+      return picks;
+    }, []);
   }
 
   private randomizeUnits(units: Character[], size: number, route: string) {
@@ -105,14 +124,22 @@ export class ThreeHousesStore {
     return route === 'Silver Snow' ? [...picked] : [lord, ...picked];
   }
 
-  private getRandomClass(unit: Character, seasonPass: boolean): CharacterClass {
-    const exclusiveClasses = this.getExclusiveClasses(unit);
+  private getRandomClass(
+    unit: Character,
+    options: Options,
+    currentPicks: Pick[]
+  ): CharacterClass {
+    const { includeSeasonPass, balanceRoster } = options;
+
     const selectableClasses = [
-      ...this.initialClassList
-        .filter((cl) => !cl.fromSeasonPass || (cl.fromSeasonPass && seasonPass))
-        .filter((cl) => cl.exclusiveTo.length === 0)
-        .filter((cl) => cl.requiredGender.includes(unit.gender)),
-      ...exclusiveClasses,
+      ...this.initialClassList.filter(
+        (cl) =>
+          filterSeasonPass(cl, includeSeasonPass) &&
+          filterExclusives(cl) &&
+          filterByGender(cl, unit.gender) &&
+          filterBalanced(cl, balanceRoster)
+      ),
+      ...this.getExclusiveClasses(unit),
     ];
 
     const random = Math.floor(Math.random() * selectableClasses.length);
