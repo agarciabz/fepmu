@@ -22,7 +22,7 @@ export class ThreeHousesFormComponent {
     randomizeClasses: [{ value: false, disabled: false }],
     allowInviableBuilds: [{ value: false, disabled: true }],
     allowOtherHouses: [{ value: true, disabled: false }],
-    balanceRoster: [{ value: false, disabled: false }],
+    balanceRoster: [{ value: false, disabled: true }], // depends on randomize
     includeFreeUpdates: [{ value: true, disabled: false }],
     includeSeasonPass: [{ value: false, disabled: false }],
     rosterSize: [{ value: 12, disabled: false }],
@@ -36,9 +36,21 @@ export class ThreeHousesFormComponent {
   ];
   public avatarGender = ['male', 'female', 'random'];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+    this.handleFormChanges();
+  }
 
   submitPick() {
     this.optionsSubmitted.emit(this.formGroup.value);
+  }
+
+  private handleFormChanges() {
+    this.formGroup.valueChanges.subscribe((changes) => {
+      const randomize: boolean = changes.randomizeClasses;
+      const rosterControl = this.formGroup.get('balanceRoster');
+      randomize
+        ? rosterControl?.enable({ emitEvent: false })
+        : rosterControl?.disable({ emitEvent: false });
+    });
   }
 }

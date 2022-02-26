@@ -13,7 +13,7 @@ import {
 } from '@fepmu/data/three-houses';
 import { TuiNotificationsService } from '@taiga-ui/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
-import { getBalancedClasses, createSkillMap } from '../../utils/balance';
+import { getBalancedClasses } from '../../utils/balance';
 import { filterUnit, splitAvatarUnit } from '../../utils/filters';
 import { randomizeGender } from '../../utils/randomize-gender';
 
@@ -36,6 +36,9 @@ const filterBalanced = (
   !balanceRoster ||
   (balanceRoster && balancedClasses.map((cl) => cl.code).includes(cl.code));
 
+const filterDancer = (cl: CharacterClass, isAlreadyPicked: boolean): boolean =>
+  !(cl.code === 'dancer' && isAlreadyPicked);
+
 @Injectable()
 export class ThreeHousesStore {
   public readonly selected$ = new BehaviorSubject<Pick[]>([]);
@@ -56,6 +59,7 @@ export class ThreeHousesStore {
     )
   );
 
+  public dancerPicked = false;
   private initialList = UNITLIST;
   public initialClassList = CLASSLIST;
 
@@ -82,6 +86,7 @@ export class ThreeHousesStore {
 
   private applyFilters(options: Options): Pick[] {
     const { avatarGender: genderOp } = options;
+    this.dancerPicked = false;
 
     const avatarGender = genderOp === 'random' ? randomizeGender() : genderOp;
     const [avatar, ...nonAvatarUnits] = splitAvatarUnit(
@@ -107,6 +112,10 @@ export class ThreeHousesStore {
           ? this.getRandomClass(unit, options, picks)
           : undefined,
       };
+      this.dancerPicked = pick.class
+        ? this.dancerPicked ||
+          (!this.dancerPicked && pick.class.code === 'dancer')
+        : this.dancerPicked;
       picks.push(pick);
       return picks;
     }, []);
@@ -149,7 +158,8 @@ export class ThreeHousesStore {
           filterSeasonPass(cl, includeSeasonPass) &&
           filterExclusives(cl) &&
           filterByGender(cl, unit.gender) &&
-          filterBalanced(cl, balanceRoster, balancedClasses)
+          filterBalanced(cl, balanceRoster, balancedClasses) &&
+          filterDancer(cl, this.dancerPicked)
       ),
       ...this.getExclusiveClasses(unit),
     ];
