@@ -22,7 +22,7 @@ export class ThreeHousesFormComponent {
     randomizeClasses: [{ value: false, disabled: false }],
     allowInviableBuilds: [{ value: false, disabled: true }],
     allowOtherHouses: [{ value: true, disabled: false }],
-    balanceRoster: [{ value: false, disabled: true }],
+    balanceRoster: [{ value: false, disabled: false }],
     includeFreeUpdates: [{ value: true, disabled: false }],
     includeSeasonPass: [{ value: false, disabled: false }],
     rosterSize: [{ value: 12, disabled: false }],

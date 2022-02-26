@@ -13,6 +13,7 @@ import {
 } from '@fepmu/data/three-houses';
 import { TuiNotificationsService } from '@taiga-ui/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { getBalancedClasses, createSkillMap } from '../../utils/balance';
 import { filterUnit, splitAvatarUnit } from '../../utils/filters';
 import { randomizeGender } from '../../utils/randomize-gender';
 
@@ -27,8 +28,13 @@ const filterExclusives = (cl: CharacterClass): boolean =>
 const filterByGender = (cl: CharacterClass, gender: Gender): boolean =>
   cl.requiredGender.includes(gender);
 
-const filterBalanced = (cl: CharacterClass, balanceRoster: boolean): boolean =>
-  !balanceRoster;
+const filterBalanced = (
+  cl: CharacterClass,
+  balanceRoster: boolean,
+  balancedClasses: CharacterClass[]
+): boolean =>
+  !balanceRoster ||
+  (balanceRoster && balancedClasses.map((cl) => cl.code).includes(cl.code));
 
 @Injectable()
 export class ThreeHousesStore {
@@ -68,6 +74,8 @@ export class ThreeHousesStore {
 
   public pickUnits(options: Options) {
     const selected = this.applyFilters(options);
+    // const classes = selected.map((cl) => cl.class) as CharacterClass[];
+    // console.debug(createSkillMap(classes));
     this.route.next(options.route);
     this.selected$.next(selected);
   }
@@ -130,6 +138,10 @@ export class ThreeHousesStore {
     currentPicks: Pick[]
   ): CharacterClass {
     const { includeSeasonPass, balanceRoster } = options;
+    const currentClasses = currentPicks
+      .filter((p) => p.class)
+      .map((p) => p.class) as CharacterClass[];
+    const balancedClasses = getBalancedClasses(currentClasses);
 
     const selectableClasses = [
       ...this.initialClassList.filter(
@@ -137,7 +149,7 @@ export class ThreeHousesStore {
           filterSeasonPass(cl, includeSeasonPass) &&
           filterExclusives(cl) &&
           filterByGender(cl, unit.gender) &&
-          filterBalanced(cl, balanceRoster)
+          filterBalanced(cl, balanceRoster, balancedClasses)
       ),
       ...this.getExclusiveClasses(unit),
     ];
