@@ -5,8 +5,8 @@ import {
   ProficiencyName,
 } from '@fepmu/data/three-houses';
 
-export type SkillMap = Map<ProficiencyName, number>;
-export type FrequencyMap = Map<number, ProficiencyName[]>;
+export type SkillMap = Map<string, number>;
+export type FrequencyMap = Map<number, string[]>;
 
 export const initializeMap: () => SkillMap = () => {
   // Exclude authority
@@ -29,9 +29,7 @@ const weaponCount = initializeMap();
 /**
  * Get weapon types with less frecuency
  */
-export const getInfrecuentWeapons: (map: SkillMap) => ProficiencyName[] = (
-  map
-) => {
+export const getInfrecuentWeapons: (map: SkillMap) => string[] = (map) => {
   const frequency: FrequencyMap = getFrequencyMap(map);
   const lowestFreq = getLowestFreqNumber(frequency);
   return frequency.get(lowestFreq) || [];
@@ -40,15 +38,16 @@ export const getInfrecuentWeapons: (map: SkillMap) => ProficiencyName[] = (
 /**
  * Group skills by its frequency
  */
-export const getFrequencyMap: (map: SkillMap) => FrequencyMap = (map) => {
-  const freq: FrequencyMap = new Map();
-  for (const [profName, numbers] of map) {
-    const proficiencies = freq.get(numbers) || [];
-    proficiencies.push(profName);
-    freq.set(numbers, proficiencies);
-  }
-  return freq;
-};
+export const getFrequencyMap: (skillMap: SkillMap) => FrequencyMap = (
+  skillMap
+) =>
+  Array.from(skillMap.entries()).reduce((freqMap, skillMapEntry) => {
+    const [skill, count] = skillMapEntry;
+    const skillList = freqMap.get(count) || [];
+    skillList.push(skill);
+    freqMap.set(count, skillList);
+    return freqMap;
+  }, new Map<number, string[]>());
 
 /**
  * Get lowest frequency of map
