@@ -34,10 +34,17 @@ const filterBalanced = (
   balancedClasses: CharacterClass[]
 ): boolean =>
   !balanceRoster ||
-  (balanceRoster && balancedClasses.map((cl) => cl.code).includes(cl.code));
+  (balanceRoster && (!balancedClasses.length ||
+    balancedClasses.map((cl) => cl.code).includes(cl.code)));
 
 const filterDancer = (cl: CharacterClass, isAlreadyPicked: boolean): boolean =>
   !(cl.code === 'dancer' && isAlreadyPicked);
+
+const filterByOptions = (cl: CharacterClass, seasonPass: boolean, gender: Gender, dancerPicker: boolean) =>
+  filterSeasonPass(cl, seasonPass) &&
+  filterExclusives(cl) &&
+  filterByGender(cl, gender) &&
+  filterDancer(cl, dancerPicker);
 
 @Injectable()
 export class ThreeHousesStore {
@@ -153,19 +160,27 @@ export class ThreeHousesStore {
     const balancedClasses = getBalancedClasses(currentClasses);
 
     const selectableClasses = [
-      ...this.initialClassList.filter(
-        (cl) =>
-          filterSeasonPass(cl, includeSeasonPass) &&
-          filterExclusives(cl) &&
-          filterByGender(cl, unit.gender) &&
-          filterBalanced(cl, balanceRoster, balancedClasses) &&
-          filterDancer(cl, this.dancerPicked)
-      ),
+      ...(this.getClassesFiltered(includeSeasonPass, unit, balanceRoster, balancedClasses)),
       ...this.getExclusiveClasses(unit),
     ];
 
     const random = Math.floor(Math.random() * selectableClasses.length);
-    return selectableClasses[random];
+    const pick = selectableClasses[random];
+    return pick;
+  }
+
+  public getClassesFiltered(includeSeasonPass: boolean, unit: Character, balanceRoster: boolean, balancedClasses: CharacterClass[]) {
+    const filteredByOptions = this.initialClassList.filter((cl) =>
+      filterByOptions(cl, includeSeasonPass, unit.gender, this.dancerPicked));
+
+    const balancedEmpty = balancedClasses.filter((cl) =>
+      filterByOptions(cl, includeSeasonPass, unit.gender, this.dancerPicked))
+      .length === 0;
+
+    return filteredByOptions.filter((cl) =>
+      filterBalanced(cl, balanceRoster && !balancedEmpty, balancedClasses)
+    );
+
   }
 
   public getExclusiveClasses(unit: Character): CharacterClass[] {
