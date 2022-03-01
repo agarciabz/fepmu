@@ -1,50 +1,21 @@
 import { Inject, Injectable } from '@angular/core';
 import {
   Character,
+  CharacterClass,
+  CLASSLIST,
   Options,
   Pick,
-  UNITLIST,
-  CLASSLIST,
-  routes as ROUTES,
   Route,
   routes,
-  CharacterClass,
-  Gender,
+  routes as ROUTES,
+  UNITLIST
 } from '@fepmu/data/three-houses';
 import { TuiNotificationsService } from '@taiga-ui/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { getBalancedClasses } from '../../utils/balance';
-import { filterUnit, splitAvatarUnit } from '../../utils/filters';
+import { filterUnit, splitAvatarUnit } from '../../utils/unit-filters';
 import { randomizeGender } from '../../utils/randomize-gender';
-
-const filterSeasonPass = (
-  cl: CharacterClass,
-  includeSeasonPass: boolean
-): boolean => !cl.fromSeasonPass || (cl.fromSeasonPass && includeSeasonPass);
-
-const filterExclusives = (cl: CharacterClass): boolean =>
-  cl.exclusiveTo.length === 0;
-
-const filterByGender = (cl: CharacterClass, gender: Gender): boolean =>
-  cl.requiredGender.includes(gender);
-
-const filterBalanced = (
-  cl: CharacterClass,
-  balanceRoster: boolean,
-  balancedClasses: CharacterClass[]
-): boolean =>
-  !balanceRoster ||
-  (balanceRoster && (!balancedClasses.length ||
-    balancedClasses.map((cl) => cl.code).includes(cl.code)));
-
-const filterDancer = (cl: CharacterClass, isAlreadyPicked: boolean): boolean =>
-  !(cl.code === 'dancer' && isAlreadyPicked);
-
-const filterByOptions = (cl: CharacterClass, seasonPass: boolean, gender: Gender, dancerPicker: boolean) =>
-  filterSeasonPass(cl, seasonPass) &&
-  filterExclusives(cl) &&
-  filterByGender(cl, gender) &&
-  filterDancer(cl, dancerPicker);
+import { filterBalanced, filterByOptions } from '../../utils/class-filters';
 
 @Injectable()
 export class ThreeHousesStore {
@@ -157,7 +128,7 @@ export class ThreeHousesStore {
     const currentClasses = currentPicks
       .filter((p) => p.class)
       .map((p) => p.class) as CharacterClass[];
-    const balancedClasses = getBalancedClasses(currentClasses);
+    const balancedClasses = balanceRoster ? getBalancedClasses(currentClasses) : [];
 
     const selectableClasses = [
       ...(this.getClassesFiltered(includeSeasonPass, unit, balanceRoster, balancedClasses)),
@@ -170,19 +141,17 @@ export class ThreeHousesStore {
   }
 
   public getClassesFiltered(includeSeasonPass: boolean, unit: Character, balanceRoster: boolean, balancedClasses: CharacterClass[]) {
-    const filteredByOptions = this.initialClassList.filter((cl) =>
-      filterByOptions(cl, includeSeasonPass, unit.gender, this.dancerPicked));
-
     const balancedEmpty = balancedClasses.filter((cl) =>
       filterByOptions(cl, includeSeasonPass, unit.gender, this.dancerPicked))
       .length === 0;
 
-    return filteredByOptions.filter((cl) =>
+    return this.initialClassList.filter((cl) =>
+      filterByOptions(cl, includeSeasonPass, unit.gender, this.dancerPicked) &&
       filterBalanced(cl, balanceRoster && !balancedEmpty, balancedClasses)
     );
-
   }
 
+  // TODO Make this available in data to avoid another filter
   public getExclusiveClasses(unit: Character): CharacterClass[] {
     return this.initialClassList.filter((cl) =>
       cl.exclusiveTo.includes(unit.id)
