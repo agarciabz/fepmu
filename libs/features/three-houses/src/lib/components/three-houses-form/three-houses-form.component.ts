@@ -4,8 +4,10 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl } from '@angular/forms';
 import { Options } from '@fepmu/data/three-houses';
+
+const randomizeOptions = ['balanceRoster', 'allowInviableBuilds'];
 
 @Component({
   selector: 'fepmu-three-houses-form',
@@ -37,24 +39,24 @@ export class ThreeHousesFormComponent {
   public avatarGender = ['male', 'female', 'random'];
 
   constructor(private fb: FormBuilder) {
-    this.handleFormChanges();
+    this.onRandomizeControlChanges();
   }
 
-  submitPick() {
+  public submitPick() {
     this.optionsSubmitted.emit(this.formGroup.value);
   }
 
-  private handleFormChanges() {
-    this.formGroup.valueChanges.subscribe((changes) => {
-      const randomize: boolean = changes.randomizeClasses;
-      const rosterControl = this.formGroup.get('balanceRoster');
-      randomize
-        ? rosterControl?.enable({ emitEvent: false })
-        : rosterControl?.disable({ emitEvent: false });
-      const inviableBuildsControl = this.formGroup.get('allowInviableBuilds');
-      randomize
-        ? inviableBuildsControl?.enable({ emitEvent: false })
-        : inviableBuildsControl?.disable({ emitEvent: false });
-    });
+  private onRandomizeControlChanges() {
+    this.formGroup
+      .get('randomizeClasses')
+      ?.valueChanges.subscribe((randomize) => {
+        let formControl;
+        randomizeOptions.forEach((name) => {
+          formControl = this.formGroup.get(name);
+          randomize
+            ? formControl?.enable({ emitEvent: false })
+            : formControl?.disable({ emitEvent: false });
+        });
+      });
   }
 }

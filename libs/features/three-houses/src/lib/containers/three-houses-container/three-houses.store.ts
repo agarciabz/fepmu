@@ -56,8 +56,8 @@ export class ThreeHousesStore {
 
   public pickUnits(options: Options) {
     const selected = this.applyFilters(options);
-    const classes = selected.map((cl) => cl.class) as CharacterClass[];
-    console.debug(createSkillMap(classes));
+    //const classes = selected.map((cl) => cl.class) as CharacterClass[];
+    //console.debug(createSkillMap(classes));
     this.route.next(options.route);
     this.selected$.next(selected);
   }
