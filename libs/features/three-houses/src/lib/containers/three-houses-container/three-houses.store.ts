@@ -8,11 +8,11 @@ import {
   Route,
   routes,
   routes as ROUTES,
-  UNITLIST
+  UNITLIST,
 } from '@fepmu/data/three-houses';
 import { TuiNotificationsService } from '@taiga-ui/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
-import { getBalancedClasses } from '../../utils/balance';
+import { createSkillMap, getBalancedClasses } from '../../utils/balance';
 import { filterUnit, splitAvatarUnit } from '../../utils/unit-filters';
 import { randomizeGender } from '../../utils/randomize-gender';
 import { filterBalanced, filterByOptions } from '../../utils/class-filters';
@@ -56,8 +56,8 @@ export class ThreeHousesStore {
 
   public pickUnits(options: Options) {
     const selected = this.applyFilters(options);
-    // const classes = selected.map((cl) => cl.class) as CharacterClass[];
-    // console.debug(createSkillMap(classes));
+    const classes = selected.map((cl) => cl.class) as CharacterClass[];
+    console.debug(createSkillMap(classes));
     this.route.next(options.route);
     this.selected$.next(selected);
   }
@@ -124,14 +124,22 @@ export class ThreeHousesStore {
     options: Options,
     currentPicks: Pick[]
   ): CharacterClass {
-    const { includeSeasonPass, balanceRoster } = options;
+    const { includeSeasonPass, balanceRoster, allowInviableBuilds } = options;
     const currentClasses = currentPicks
       .filter((p) => p.class)
       .map((p) => p.class) as CharacterClass[];
-    const balancedClasses = balanceRoster ? getBalancedClasses(currentClasses) : [];
+    const balancedClasses = balanceRoster
+      ? getBalancedClasses(currentClasses)
+      : [];
 
     const selectableClasses = [
-      ...(this.getClassesFiltered(includeSeasonPass, unit, balanceRoster, balancedClasses)),
+      ...this.getClassesFiltered(
+        includeSeasonPass,
+        unit,
+        balanceRoster,
+        balancedClasses,
+        allowInviableBuilds
+      ),
       ...this.getExclusiveClasses(unit),
     ];
 
@@ -140,14 +148,36 @@ export class ThreeHousesStore {
     return pick;
   }
 
-  public getClassesFiltered(includeSeasonPass: boolean, unit: Character, balanceRoster: boolean, balancedClasses: CharacterClass[]) {
-    const balancedEmpty = balancedClasses.filter((cl) =>
-      filterByOptions(cl, includeSeasonPass, unit.gender, this.dancerPicked))
-      .length === 0;
+  public getClassesFiltered(
+    includeSeasonPass: boolean,
+    unit: Character,
+    balanceRoster: boolean,
+    balancedClasses: CharacterClass[],
+    allowInviableBuilds: boolean
+  ) {
+    const balancedAvailable =
+      balancedClasses.filter((cl) =>
+        filterByOptions(
+          cl,
+          includeSeasonPass,
+          unit.gender,
+          this.dancerPicked,
+          unit,
+          allowInviableBuilds
+        )
+      ).length > 0;
 
-    return this.initialClassList.filter((cl) =>
-      filterByOptions(cl, includeSeasonPass, unit.gender, this.dancerPicked) &&
-      filterBalanced(cl, balanceRoster && !balancedEmpty, balancedClasses)
+    return this.initialClassList.filter(
+      (cl) =>
+        filterByOptions(
+          cl,
+          includeSeasonPass,
+          unit.gender,
+          this.dancerPicked,
+          unit,
+          allowInviableBuilds
+        ) &&
+        filterBalanced(cl, balanceRoster && balancedAvailable, balancedClasses)
     );
   }
 

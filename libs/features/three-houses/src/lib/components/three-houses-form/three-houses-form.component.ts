@@ -20,7 +20,7 @@ export class ThreeHousesFormComponent {
     route: ['Azure Moon'],
     avatarGender: ['male'],
     randomizeClasses: [{ value: false, disabled: false }],
-    allowInviableBuilds: [{ value: false, disabled: true }],
+    allowInviableBuilds: [{ value: false, disabled: true }], // depends on randomize
     allowOtherHouses: [{ value: true, disabled: false }],
     balanceRoster: [{ value: false, disabled: true }], // depends on randomize
     includeFreeUpdates: [{ value: true, disabled: false }],
@@ -51,6 +51,10 @@ export class ThreeHousesFormComponent {
       randomize
         ? rosterControl?.enable({ emitEvent: false })
         : rosterControl?.disable({ emitEvent: false });
+      const inviableBuildsControl = this.formGroup.get('allowInviableBuilds');
+      randomize
+        ? inviableBuildsControl?.enable({ emitEvent: false })
+        : inviableBuildsControl?.disable({ emitEvent: false });
     });
   }
 }
