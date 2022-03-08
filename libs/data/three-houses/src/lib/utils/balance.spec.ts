@@ -1,15 +1,10 @@
-import {
-  CLASSLIST,
-  ProficiencyName,
-  getClass,
-  getUnit,
-} from '@fepmu/data/three-houses';
-
+import { CLASSLIST, getClass, getUnit } from '../data';
+import { ProficiencyName } from '../models';
 import {
   FrequencyMap,
   getClassesByProficiencies,
   getFrequencyMap,
-  getInfrecuentSkills,
+  getInfrequentSkills,
   getLowestFreqNumber,
   getUnitProficiencies,
   SkillMap,
@@ -71,7 +66,7 @@ describe('balance', () => {
   const map = initializeTestMap();
   const freq = initializeTestFrequencyMap();
 
-  describe('getInfrecuentWeapons', () => {
+  describe('getInfrequentWeapons', () => {
     it('should return less used weapons', () => {
       const expected: ProficiencyName[] = [
         'brawlingProficiency',
@@ -79,7 +74,7 @@ describe('balance', () => {
         'flyingProficiency',
       ];
 
-      const result = getInfrecuentSkills(map);
+      const result = getInfrequentSkills(map);
 
       expect(result).toEqual(expected);
     });

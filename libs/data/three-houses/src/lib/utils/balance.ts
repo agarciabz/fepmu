@@ -1,10 +1,10 @@
 import {
   Character,
   CharacterClass,
-  CLASSLIST,
   ProficiencyLevel,
   ProficiencyName,
-} from '@fepmu/data/three-houses';
+} from '../models';
+import { CLASSLIST } from '../data';
 
 export type SkillMap = Map<string, number>;
 export type FrequencyMap = Map<number, string[]>;
@@ -26,9 +26,9 @@ export const initializeSkillMap: () => SkillMap = () => {
 };
 
 /**
- * Get weapon types with less frecuency
+ * Get weapon types with less frequency
  */
-export const getInfrecuentSkills: (map: SkillMap) => string[] = (map) => {
+export const getInfrequentSkills: (map: SkillMap) => string[] = (map) => {
   const frequency: FrequencyMap = getFrequencyMap(map);
   const lowestFreq = getLowestFreqNumber(frequency);
   return frequency.get(lowestFreq) || [];
@@ -49,7 +49,7 @@ export const getFrequencyMap: (skillMap: SkillMap) => FrequencyMap = (
   }, new Map<number, string[]>());
 
 /**
- * Get lowest frequency of map
+ * Get the lowest frequency of map
  */
 export const getLowestFreqNumber: (freq: FrequencyMap) => number = (freq) => {
   const freqNumbers = Array.from(freq.keys()).sort();
@@ -98,12 +98,9 @@ export const createSkillMap: (classes: CharacterClass[]) => SkillMap = (
 export const getBalancedClasses: (
   current: CharacterClass[]
 ) => CharacterClass[] = (current) => {
-  let res: CharacterClass[] = [];
   const skillMap = createSkillMap(current);
-  const balancedSkills = getInfrecuentSkills(skillMap).map((proficiency) =>
+  const balancedSkills = getInfrequentSkills(skillMap).map((proficiency) =>
     proficiency.replace('Proficiency', '')
   );
-  const balancedClasses = getClassesByProficiencies(balancedSkills, CLASSLIST);
-  res = balancedClasses;
-  return res;
+  return getClassesByProficiencies(balancedSkills, CLASSLIST);
 };

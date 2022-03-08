@@ -1,4 +1,4 @@
-import { getClass, getUnit, Options } from '@fepmu/data/three-houses';
+import { getClass, getUnit } from '@fepmu/data/three-houses';
 import { ThreeHousesStore } from './three-houses.store';
 import { TuiNotificationsService } from '@taiga-ui/core';
 
@@ -20,11 +20,21 @@ describe('Three Houses logic', () => {
 
   describe('getClassesFiltered', () => {
     it('should not return empty', () => {
-      const balancedClasses = [getClass('warmonk'), getClass('dancer'), getClass('warmaster')];
+      const balancedClasses = [
+        getClass('warmonk'),
+        getClass('dancer'),
+        getClass('warmaster'),
+      ];
       store.dancerPicked = true;
-      const result = store.getClassesFiltered(false, getUnit('petra'), true, balancedClasses);
+      const result = store.getClassesFiltered(
+        false,
+        getUnit('petra'),
+        true,
+        balancedClasses,
+        true
+      );
 
       expect(result.length).not.toBe(0);
     });
-  })
+  });
 });

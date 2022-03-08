@@ -1,9 +1,5 @@
-import {
-  Character,
-  CharacterClass,
-  Proficiencies,
-} from '@fepmu/data/three-houses';
 import { SkillMap } from './balance';
+import { Character, CharacterClass, Proficiencies } from '../models';
 
 export const getRequiredSkills: (cls: CharacterClass) => string[] = (cls) =>
   cls.requiredSkills;
@@ -11,7 +7,7 @@ export const getRequiredSkills: (cls: CharacterClass) => string[] = (cls) =>
 export const getCharacterSkills: (prof: Proficiencies) => SkillMap = (prof) =>
   new Map(
     Object.entries(mapProficienciesObject(prof)).filter(
-      ([key, vaue]) => vaue !== 0
+      ([, value]) => value !== 0
     )
   );
 

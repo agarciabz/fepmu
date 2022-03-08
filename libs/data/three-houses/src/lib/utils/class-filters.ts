@@ -1,5 +1,5 @@
-import { Character, CharacterClass, Gender } from '@fepmu/data/three-houses';
 import { isViable } from './builds';
+import { Character, CharacterClass, Gender } from '../models';
 
 const filterSeasonPass = (
   cl: CharacterClass,

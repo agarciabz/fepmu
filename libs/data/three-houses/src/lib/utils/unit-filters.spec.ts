@@ -1,4 +1,4 @@
-import { getUnit } from '@fepmu/data/three-houses';
+import { getUnit } from '../data';
 import { splitAvatarUnit } from './unit-filters';
 
 describe('filters', () => {

@@ -4,7 +4,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Options } from '@fepmu/data/three-houses';
 
 const randomizeOptions = ['balanceRoster', 'allowInviableBuilds'];

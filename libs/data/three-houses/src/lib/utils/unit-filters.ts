@@ -1,11 +1,5 @@
-import {
-  Character,
-  freeUpdateCharacters,
-  Gender,
-  getUnit,
-  Options,
-  Route,
-} from '@fepmu/data/three-houses';
+import { Character, Gender, Options, Route } from '../models';
+import { freeUpdateCharacters, getUnit } from '../data';
 
 const avatarCode = {
   male: 'bylethm',

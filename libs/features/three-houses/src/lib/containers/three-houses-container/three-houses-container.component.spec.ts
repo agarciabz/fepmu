@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ThreeHousesContainerComponent } from './three-houses-container.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ThreeHousesContainerComponent', () => {
   let component: ThreeHousesContainerComponent;
@@ -8,9 +9,9 @@ describe('ThreeHousesContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ThreeHousesContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [ThreeHousesContainerComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
   });
 
   beforeEach(() => {

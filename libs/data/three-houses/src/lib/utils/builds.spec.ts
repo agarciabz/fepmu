@@ -1,4 +1,3 @@
-import { getClass, getUnit } from '@fepmu/data/three-houses';
 import {
   getCharacterSkills,
   getRequiredSkills,
@@ -6,6 +5,7 @@ import {
   isViable,
 } from './builds';
 import { SkillMap } from './balance';
+import { getClass, getUnit } from '../data';
 
 const initializeSkillMap = () => {
   const map: SkillMap = new Map();

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ThreeHousesFormComponent } from './three-houses-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 describe('ThreeHousesFormComponent', () => {
   let component: ThreeHousesFormComponent;
@@ -8,9 +11,10 @@ describe('ThreeHousesFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ThreeHousesFormComponent ]
-    })
-    .compileComponents();
+      declarations: [ThreeHousesFormComponent],
+      imports: [CommonModule, FormsModule, ReactiveFormsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
   });
 
   beforeEach(() => {
