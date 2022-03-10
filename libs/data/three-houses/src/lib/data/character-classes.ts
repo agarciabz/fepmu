@@ -1,4 +1,4 @@
-import { CharacterClass } from '../models';
+import { Character, CharacterClass } from '../models';
 
 const classes: { [K: string]: CharacterClass } = {
   dancer: {
@@ -226,3 +226,7 @@ const classes: { [K: string]: CharacterClass } = {
 export const CLASSLIST = Object.entries(classes).map(([, value]) => value);
 
 export const getClass = (code: string) => classes[code];
+
+// TODO Make this available in data to avoid another filter
+export const getExclusiveClasses = (unit: Character): CharacterClass[] =>
+  CLASSLIST.filter((cls) => cls.exclusiveTo.includes(unit.id));

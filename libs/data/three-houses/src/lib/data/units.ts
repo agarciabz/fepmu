@@ -1,4 +1,5 @@
 import { Character } from '../models';
+import { Pick } from './pick';
 
 export const units: { [K: string]: Character } = {
   bylethm: {
@@ -828,3 +829,8 @@ export type UnitNames = keyof typeof units;
 export const UNITLIST = Object.entries(units).map(([, value]) => value);
 
 export const getUnit = (id: string) => units[id];
+
+export const getUnitsText = (units: Pick[]) =>
+  units
+    .map((u) => `${u.unit.name}${u.class ? `: ${u.class.name}` : ''}`)
+    .join('\n');
