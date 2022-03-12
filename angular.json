@@ -8,20 +8,14 @@
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/data/three-houses/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/data/three-houses/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/data/three-houses"
-          ],
+          "outputs": ["coverage/libs/data/three-houses"],
           "options": {
             "jestConfig": "libs/data/three-houses/jest.config.js",
             "passWithNoTests": true
@@ -38,9 +32,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/features/three-houses"
-          ],
+          "outputs": ["coverage/libs/features/three-houses"],
           "options": {
             "jestConfig": "libs/features/three-houses/jest.config.js",
             "passWithNoTests": true
@@ -66,9 +58,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/fepmu-app",
             "index": "apps/fepmu-app/src/index.html",
@@ -154,9 +144,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/fepmu-app"
-          ],
+          "outputs": ["coverage/apps/fepmu-app"],
           "options": {
             "jestConfig": "apps/fepmu-app/jest.config.js",
             "passWithNoTests": true
@@ -187,20 +175,115 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/fepmu-app-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/fepmu-app-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "fepmu-app"
-      ]
+      "implicitDependencies": ["fepmu-app"]
+    },
+    "fepmu-react": {
+      "root": "apps/fepmu-react",
+      "sourceRoot": "apps/fepmu-react/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:webpack",
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": "production",
+          "options": {
+            "compiler": "babel",
+            "outputPath": "dist/apps/fepmu-react",
+            "index": "apps/fepmu-react/src/index.html",
+            "baseHref": "/",
+            "main": "apps/fepmu-react/src/main.tsx",
+            "polyfills": "apps/fepmu-react/src/polyfills.ts",
+            "tsConfig": "apps/fepmu-react/tsconfig.app.json",
+            "assets": [
+              "apps/fepmu-react/src/favicon.ico",
+              "apps/fepmu-react/src/assets"
+            ],
+            "styles": ["apps/fepmu-react/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/fepmu-react/src/environments/environment.ts",
+                  "with": "apps/fepmu-react/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "fepmu-react:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "fepmu-react:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/fepmu-react/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/fepmu-react"],
+          "options": {
+            "jestConfig": "apps/fepmu-react/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "fepmu-react-e2e": {
+      "root": "apps/fepmu-react-e2e",
+      "sourceRoot": "apps/fepmu-react-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/fepmu-react-e2e/cypress.json",
+            "devServerTarget": "fepmu-react:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "fepmu-react:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/fepmu-react-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["fepmu-react"]
     },
     "ui-unit": {
       "projectType": "library",
@@ -210,9 +293,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ui/unit"
-          ],
+          "outputs": ["coverage/libs/ui/unit"],
           "options": {
             "jestConfig": "libs/ui/unit/jest.config.js",
             "passWithNoTests": true
