@@ -285,6 +285,31 @@
       "tags": [],
       "implicitDependencies": ["fepmu-react"]
     },
+    "ui-react-features-three-houses": {
+      "root": "libs/ui/react/features/three-houses",
+      "sourceRoot": "libs/ui/react/features/three-houses/src",
+      "projectType": "library",
+      "tags": [],
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui/react/features/three-houses/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/react/features/three-houses"],
+          "options": {
+            "jestConfig": "libs/ui/react/features/three-houses/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "ui-unit": {
       "projectType": "library",
       "root": "libs/ui/unit",
