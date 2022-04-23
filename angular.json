@@ -310,6 +310,29 @@
         }
       }
     },
+    "ui-react-unit-list": {
+      "root": "libs/ui/react/unit-list",
+      "sourceRoot": "libs/ui/react/unit-list/src",
+      "projectType": "library",
+      "tags": ["scope:ui"],
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/ui/react/unit-list/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/react/unit-list"],
+          "options": {
+            "jestConfig": "libs/ui/react/unit-list/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "ui-unit": {
       "projectType": "library",
       "root": "libs/ui/unit",
