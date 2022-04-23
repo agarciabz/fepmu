@@ -19,6 +19,7 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
 
   return (
     <div className={styles['container']}>
+      <ThreeHousesForm />
       <UnitList picks={state.picks} />
     </div>
   );
