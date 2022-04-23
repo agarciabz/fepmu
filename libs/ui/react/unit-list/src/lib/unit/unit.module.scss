@@ -1,7 +1,10 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.container {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity));
+  padding: 0.5rem /* 8px */;
+  border-radius: 0.5rem /* 8px */;
+}
+
+.unit-name {
+  font-weight: 700;
+}
