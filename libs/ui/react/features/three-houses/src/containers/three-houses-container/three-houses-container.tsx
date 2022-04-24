@@ -2,6 +2,7 @@ import { Pick, mockPicks } from '@fepmu/data/three-houses';
 import { UnitList } from '@fepmu/ui/react/unit-list';
 import { useState } from 'react';
 import ThreeHousesForm from '../../components/three-houses-form/three-houses-form';
+import { Button } from '@chakra-ui/react';
 
 import styles from './three-houses-container.module.scss';
 
@@ -24,9 +25,9 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
       <UnitList picks={picks}>Selected units</UnitList>
       {picks.length > 0 ? (
         <div className="flex">
-          <button className="grow" type="button">
+          <Button className="grow" size={'lg'}>
             Copy to clipboard
-          </button>
+          </Button>
         </div>
       ) : (
         <></>

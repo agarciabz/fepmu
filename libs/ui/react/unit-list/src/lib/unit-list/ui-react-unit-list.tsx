@@ -11,7 +11,7 @@ export function UnitList(props: UiReactUnitListProps) {
   const { picks } = props;
 
   return (
-    <div className="px-2 py-2 rounded-lg">
+    <div className="px-2 py-2 rounded-lg bg-slate-500">
       <div className="pb-2">{props.children}</div>
       <div className="flex flex-col space-y-2">
         {picks.map((pick) => (

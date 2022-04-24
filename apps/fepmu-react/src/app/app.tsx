@@ -2,10 +2,11 @@
 import { ThreeHousesContainer } from '@fepmu/ui/react/features/three-houses';
 
 import { Route, Redirect } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
 
 export function App() {
   return (
-    <>
+    <ChakraProvider>
       <div />
 
       {/* START: routes */}
@@ -16,7 +17,7 @@ export function App() {
       </Route>
       <Route path="/three-houses" component={ThreeHousesContainer} />
       {/* END: routes */}
-    </>
+    </ChakraProvider>
   );
 }
 
