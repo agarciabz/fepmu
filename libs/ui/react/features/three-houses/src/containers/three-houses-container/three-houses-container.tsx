@@ -16,11 +16,21 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
   const [state] = useState<State>({
     picks: mockPicks,
   });
+  const { picks } = state;
 
   return (
-    <div className={styles['container']}>
+    <div className="p-4 flex flex-col space-y-4 md:w-3/5 lg:w-2/5 md:mx-auto">
       <ThreeHousesForm />
-      <UnitList picks={state.picks}>Selected units</UnitList>
+      <UnitList picks={picks}>Selected units</UnitList>
+      {picks.length > 0 ? (
+        <div className="flex">
+          <button className="grow" type="button">
+            Copy to clipboard
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
