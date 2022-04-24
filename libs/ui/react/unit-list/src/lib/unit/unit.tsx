@@ -1,5 +1,4 @@
 import { Pick } from '@fepmu/data/three-houses';
-import styles from './unit.module.scss';
 
 /* eslint-disable-next-line */
 export interface UnitProps {
@@ -9,8 +8,8 @@ export interface UnitProps {
 export function Unit(props: UnitProps) {
   const { unit, class: unitClass } = props.pick;
   return (
-    <div className={styles['container']}>
-      <span className={styles['unit-name']}>{unit.name}</span>-{unitClass?.name}
+    <div className="bg-neutral-50 p-2 rounded-lg">
+      <span className="font-bold">{unit.name}</span>-{unitClass?.name}
       {}
     </div>
   );
