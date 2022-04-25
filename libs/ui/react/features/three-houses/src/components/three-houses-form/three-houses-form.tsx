@@ -14,9 +14,13 @@ import { Options, defaultOptions } from '@fepmu/data/three-houses';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 /* eslint-disable-next-line */
-export interface ThreeHousesFormProps {}
+export interface ThreeHousesFormProps {
+  onSubmit: (options: Options) => void;
+}
 
 export function ThreeHousesForm(props: ThreeHousesFormProps) {
+  const { onSubmit } = props;
+
   const routes = [
     'Azure Moon',
     'Crimson Flower',
@@ -56,7 +60,7 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
   const handleRosterSizeChange = (_: string, size: number) =>
     setState({ ...state, rosterSize: size });
 
-  const formSubmit = (event: any) => console.log(state);
+  const formSubmit = () => onSubmit(state);
 
   return (
     <form>
@@ -96,7 +100,7 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
             <Checkbox
               id="randomizeClasses"
               name="randomizeClasses"
-              checked={state.randomizeClasses}
+              isChecked={state.randomizeClasses}
               onChange={handleInputChange}
             >
               Randomize classes
@@ -106,7 +110,7 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
             <Checkbox
               id="allowInviableBuilds"
               name="allowInviableBuilds"
-              checked={state.allowInviableBuilds}
+              isChecked={state.allowInviableBuilds}
               onChange={handleInputChange}
             >
               Allow inviable builds
@@ -116,7 +120,7 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
             <Checkbox
               id="allowOtherHouses"
               name="allowOtherHouses"
-              checked={state.allowOtherHouses}
+              isChecked={state.allowOtherHouses}
               onChange={handleInputChange}
             >
               Allow other houses
@@ -126,7 +130,7 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
             <Checkbox
               id="balanceRoster"
               name="balanceRoster"
-              checked={state.balanceRoster}
+              isChecked={state.balanceRoster}
               onChange={handleInputChange}
             >
               Balance roster
@@ -136,7 +140,7 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
             <Checkbox
               id="includeFreeUpdates"
               name="includeFreeUpdates"
-              checked={state.includeFreeUpdates}
+              isChecked={state.includeFreeUpdates}
               onChange={handleInputChange}
             >
               Include free updates
@@ -146,7 +150,7 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
             <Checkbox
               id="includeSeasonPass"
               name="includeSeasonPass"
-              checked={state.includeSeasonPass}
+              isChecked={state.includeSeasonPass}
               onChange={handleInputChange}
             >
               Include season pass

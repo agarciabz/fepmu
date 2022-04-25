@@ -9,7 +9,7 @@ export function Unit(props: UnitProps) {
   const { unit, class: unitClass } = props.pick;
   return (
     <div className="bg-neutral-50 p-2 rounded-lg">
-      <span className="font-bold">{unit.name}</span>-{unitClass?.name}
+      <span className="font-bold">{unit.name}</span> {unitClass?.name}
       {}
     </div>
   );
