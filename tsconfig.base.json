@@ -19,6 +19,10 @@
       "@fepmu/features/three-houses": [
         "libs/features/three-houses/src/index.ts"
       ],
+      "@fepmu/ui/react/features/three-houses": [
+        "libs/ui/react/features/three-houses/src/index.ts"
+      ],
+      "@fepmu/ui/react/unit-list": ["libs/ui/react/unit-list/src/index.ts"],
       "@fepmu/ui/unit": ["libs/ui/unit/src/index.ts"]
     }
   },

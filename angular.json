@@ -184,6 +184,155 @@
       "tags": [],
       "implicitDependencies": ["fepmu-app"]
     },
+    "fepmu-react": {
+      "root": "apps/fepmu-react",
+      "sourceRoot": "apps/fepmu-react/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:webpack",
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": "production",
+          "options": {
+            "compiler": "babel",
+            "outputPath": "dist/apps/fepmu-react",
+            "index": "apps/fepmu-react/src/index.html",
+            "baseHref": "/",
+            "main": "apps/fepmu-react/src/main.tsx",
+            "polyfills": "apps/fepmu-react/src/polyfills.ts",
+            "tsConfig": "apps/fepmu-react/tsconfig.app.json",
+            "assets": [
+              "apps/fepmu-react/src/favicon.ico",
+              "apps/fepmu-react/src/assets"
+            ],
+            "styles": ["apps/fepmu-react/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/fepmu-react/src/environments/environment.ts",
+                  "with": "apps/fepmu-react/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "fepmu-react:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "fepmu-react:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/fepmu-react/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/fepmu-react"],
+          "options": {
+            "jestConfig": "apps/fepmu-react/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "fepmu-react-e2e": {
+      "root": "apps/fepmu-react-e2e",
+      "sourceRoot": "apps/fepmu-react-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/fepmu-react-e2e/cypress.json",
+            "devServerTarget": "fepmu-react:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "fepmu-react:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/fepmu-react-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["fepmu-react"]
+    },
+    "ui-react-features-three-houses": {
+      "root": "libs/ui/react/features/three-houses",
+      "sourceRoot": "libs/ui/react/features/three-houses/src",
+      "projectType": "library",
+      "tags": [],
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui/react/features/three-houses/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/react/features/three-houses"],
+          "options": {
+            "jestConfig": "libs/ui/react/features/three-houses/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ui-react-unit-list": {
+      "root": "libs/ui/react/unit-list",
+      "sourceRoot": "libs/ui/react/unit-list/src",
+      "projectType": "library",
+      "tags": ["scope:ui"],
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/ui/react/unit-list/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/react/unit-list"],
+          "options": {
+            "jestConfig": "libs/ui/react/unit-list/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "ui-unit": {
       "projectType": "library",
       "root": "libs/ui/unit",
