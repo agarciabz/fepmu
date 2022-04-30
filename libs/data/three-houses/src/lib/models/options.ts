@@ -11,3 +11,15 @@ export interface Options {
   includeSeasonPass: boolean;
   rosterSize: number;
 }
+
+export const defaultOptions: Options = {
+  route: 'Azure Moon',
+  avatarGender: 'male',
+  randomizeClasses: false,
+  allowInviableBuilds: false,
+  allowOtherHouses: true,
+  balanceRoster: false,
+  includeFreeUpdates: true,
+  includeSeasonPass: false,
+  rosterSize: 12,
+};
