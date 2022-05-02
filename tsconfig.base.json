@@ -10,7 +10,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["esnext", "dom"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -19,11 +19,7 @@
       "@fepmu/features/three-houses": [
         "libs/features/three-houses/src/index.ts"
       ],
-      "@fepmu/ui/react/features/three-houses": [
-        "libs/ui/react/features/three-houses/src/index.ts"
-      ],
-      "@fepmu/ui/react/unit-list": ["libs/ui/react/unit-list/src/index.ts"],
-      "@fepmu/ui/unit": ["libs/ui/unit/src/index.ts"]
+      "@fepmu/ui/unit-list": ["libs/ui/unit-list/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

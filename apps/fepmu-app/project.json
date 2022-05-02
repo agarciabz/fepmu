@@ -1,0 +1,83 @@
+{
+  "root": "apps/fepmu-app",
+  "sourceRoot": "apps/fepmu-app/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/fepmu-app",
+        "index": "apps/fepmu-app/src/index.html",
+        "baseHref": "/",
+        "main": "apps/fepmu-app/src/main.tsx",
+        "polyfills": "apps/fepmu-app/src/polyfills.ts",
+        "tsConfig": "apps/fepmu-app/tsconfig.app.json",
+        "assets": [
+          "apps/fepmu-app/src/favicon.ico",
+          "apps/fepmu-app/src/assets"
+        ],
+        "styles": ["apps/fepmu-app/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/fepmu-app/src/environments/environment.ts",
+              "with": "apps/fepmu-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "fepmu-app:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "fepmu-app:build:development"
+        },
+        "production": {
+          "buildTarget": "fepmu-app:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/fepmu-app/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/fepmu-app"],
+      "options": {
+        "jestConfig": "apps/fepmu-app/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,23 @@
+{
+  "root": "libs/features/three-houses",
+  "sourceRoot": "libs/features/three-houses/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/features/three-houses/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/three-houses"],
+      "options": {
+        "jestConfig": "libs/features/three-houses/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

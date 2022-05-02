@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "projects": {
+    "data-three-houses": "libs/data/three-houses",
+    "features-three-houses": "libs/features/three-houses",
+    "fepmu-app": "apps/fepmu-app",
+    "fepmu-app-e2e": "apps/fepmu-app-e2e",
+    "ui-unit-list": "libs/ui/unit-list"
+  }
+}

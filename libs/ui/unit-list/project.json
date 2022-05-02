@@ -1,0 +1,23 @@
+{
+  "root": "libs/ui/unit-list",
+  "sourceRoot": "libs/ui/unit-list/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ui/unit-list/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ui/unit-list"],
+      "options": {
+        "jestConfig": "libs/ui/unit-list/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
