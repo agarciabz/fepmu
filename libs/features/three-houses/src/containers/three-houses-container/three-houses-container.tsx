@@ -28,7 +28,7 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
     if (picks.length && options) setText(createText(picks, options.route));
   }, [picks]);
 
-  const handleSubmit = (options: Options) => setOptions(options);
+  const handleSubmit = (options: Options) => setOptions({...options});
 
   const copyToClipboard = () => navigator.clipboard.writeText(text).then();
 
