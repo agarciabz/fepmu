@@ -27,7 +27,21 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
     'Verdant Wind',
     'Silver Snow',
   ];
-  const avatarGender = ['male', 'female', 'random'];
+
+  const avatarGenderOptions = [
+    {
+      display: 'Male',
+      value: 'male'
+    },
+    {
+      display: 'Female',
+      value: 'female'
+    },
+    {
+      display: 'Random',
+      value: 'random'
+    }
+  ];
 
   const [state, setState] = useState<Options>(defaultOptions);
   useEffect(() => {
@@ -89,9 +103,9 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
               name="avatarGender"
               onChange={handleInputChange}
             >
-              {avatarGender.map((item) => (
-                <option key={item} value={item}>
-                  {item}
+              {avatarGenderOptions.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.display}
                 </option>
               ))}
             </Select>

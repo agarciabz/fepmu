@@ -34,6 +34,7 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
 
   return (
     <div className="p-4 flex flex-col space-y-4 md:w-3/5 lg:w-2/5 md:mx-auto">
+      <h1>Fire Emblem Three Houses - Pick My Units</h1>
       <ThreeHousesForm onSubmit={handleSubmit} />
       {picks.length > 0 ? (
         <>
