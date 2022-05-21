@@ -1,3 +1,4 @@
+import { VStack, Text, useColorMode } from '@chakra-ui/react';
 import { Pick } from '@fepmu/data/three-houses';
 import Unit from '../unit/unit';
 
@@ -9,16 +10,24 @@ export interface UnitListProps {
 
 export function UnitList(props: UnitListProps) {
   const { picks } = props;
+  const { colorMode } = useColorMode();
 
   return (
-    <div className="px-2 py-2 rounded-lg bg-slate-500">
-      <div className="pb-2">{props.children}</div>
-      <div className="flex flex-col space-y-2">
+    <VStack
+      p={2}
+      rounded={'lg'}
+      w="100%"
+      align={'stretch'}
+      spacing={2}
+      bg={colorMode === 'light' ? 'blackAlpha.200' : 'whiteAlpha.200'}
+    >
+      <Text>{props.children}</Text>
+      <VStack align={'stretch'} spacing={2}>
         {picks.map((pick) => (
           <Unit key={pick.unit.id} pick={pick} />
         ))}
-      </div>
-    </div>
+      </VStack>
+    </VStack>
   );
 }
 

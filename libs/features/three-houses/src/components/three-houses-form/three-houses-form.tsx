@@ -31,16 +31,16 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
   const avatarGenderOptions = [
     {
       display: 'Male',
-      value: 'male'
+      value: 'male',
     },
     {
       display: 'Female',
-      value: 'female'
+      value: 'female',
     },
     {
       display: 'Random',
-      value: 'random'
-    }
+      value: 'random',
+    },
   ];
 
   const [state, setState] = useState<Options>(defaultOptions);

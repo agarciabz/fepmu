@@ -9,9 +9,6 @@ export function App() {
 
   return (
     <>
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
       <IconButton
         aria-label="color-mode"
         icon={colorMode === 'light' ? <FaSun /> : <FaMoon />}
@@ -21,6 +18,9 @@ export function App() {
         alignSelf="flex-end"
         onClick={toggleColorMode}
       />
+      {/* START: routes */}
+      {/* These routes and navigation have been generated for you */}
+      {/* Feel free to move and update them to fit your needs */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ThreeHousesContainer />} />
