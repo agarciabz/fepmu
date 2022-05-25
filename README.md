@@ -21,18 +21,30 @@ Initially this was a fork of [henry-alakazhang's Pick Your Units](https://github
 
 ### Tech stack
 
-TODO
-
-![image](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=flat)
+![image](https://img.shields.io/badge/-Nx-143055?logo=nx&logoColor=white&style=flat)
 ![image](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white&style=flat)
+![image](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=flat)
+
+I started using [Nx CLI](https://nx.dev) to create an Angular workspace by default. At first I was going to use Angular because I was more used to it, along with [Taiga UI](https://taiga-ui.dev/), a component library. However I decided to redo the project with React to start practising with this library.
+
+To make the migration easier I decided to leverage Nx and create a framework-agnostic pure TypeScript library which will contain logic, data and models.
+
+```sh
+nx generate @nrwl/workspace:library three-houses --directory=data
+```
+
+With time I started having errors in the workspace so I ended up recreating it from scratch, this time with React modules only.
+
+![image](https://img.shields.io/badge/-ESLint-4B32C3?logo=eslint&logoColor=white&style=flat)
+![image](https://img.shields.io/badge/-Prettier-F7B93E?logo=prettier&logoColor=white&style=flat)
+
+ESLint and Prettier are included by default with Nx workspaces. Nx provides a modern development experience tooling from the beginning.
+
 ![image](https://img.shields.io/badge/-TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat)
 ![image](https://img.shields.io/badge/-Chakra_UI-319795?logo=chakraui&logoColor=white&style=flat)
 
-![image](https://img.shields.io/badge/-Nx-143055?logo=nx&logoColor=white&style=flat)
 ![image](https://img.shields.io/badge/-GitHub_Actions-2088FF?logo=githubactions&logoColor=white&style=flat)
 ![image](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white&style=flat)
 ![image](https://img.shields.io/badge/-ts--node-3178C6?logo=tsnode&logoColor=white&style=flat)
-![image](https://img.shields.io/badge/-ESLint-4B32C3?logo=eslint&logoColor=white&style=flat)
-![image](https://img.shields.io/badge/-Prettier-F7B93E?logo=prettier&logoColor=white&style=flat)
 
 ![image](https://img.shields.io/badge/-Notion-000000?logo=notion&logoColor=white&style=flat)
