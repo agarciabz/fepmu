@@ -43,8 +43,19 @@ ESLint and Prettier are included by default with Nx workspaces. Nx provides a mo
 ![image](https://img.shields.io/badge/-TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat)
 ![image](https://img.shields.io/badge/-Chakra_UI-319795?logo=chakraui&logoColor=white&style=flat)
 
+I'm not good at styling so I find useful to abstract utility classes with TailwindCSS. Also I wanted to use an existing UI component library to import ready-to-use components such as selectors, so I added Chakra UI to the project. It has a nice look & feel and supports night mode.
+
+I observed that TailwindCSS and Chakra UI overlap some of its functionalities. For example, Chakra UI has a component called `VStack` that creates a vertical container of items. You can also achieve this with Tailwind classes that applies flex containers.
+
 ![image](https://img.shields.io/badge/-GitHub_Actions-2088FF?logo=githubactions&logoColor=white&style=flat)
 ![image](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white&style=flat)
 ![image](https://img.shields.io/badge/-ts--node-3178C6?logo=tsnode&logoColor=white&style=flat)
 
 ![image](https://img.shields.io/badge/-Notion-000000?logo=notion&logoColor=white&style=flat)
+
+### Milestones
+
+- [x] Test Driven Development
+- [x] Switch between light and dark mode
+- [x] CICD pipeline
+- [ ] Multiple languages
