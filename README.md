@@ -48,13 +48,20 @@ I'm not good at styling so I find useful to abstract utility classes with Tailwi
 I observed that TailwindCSS and Chakra UI overlap some of its functionalities. For example, Chakra UI has a component called `VStack` that creates a vertical container of items. You can also achieve this with Tailwind classes that applies flex containers.
 
 ![image](https://img.shields.io/badge/-GitHub_Actions-2088FF?logo=githubactions&logoColor=white&style=flat)
+
+I set up a [GitHub Actions pipeline](.github/workflows/ci.yml) to build and deploy this app which each new commit, allowing a more agile development.
+
 ![image](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white&style=flat)
+
+I took the chance to apply Test Driven Development, specially in data library where most logic and data transformations had place. By applying TDD I could code and refactor and getting errors earlier, improving code quality.
+
 ![image](https://img.shields.io/badge/-ts--node-3178C6?logo=tsnode&logoColor=white&style=flat)
 
 ![image](https://img.shields.io/badge/-Notion-000000?logo=notion&logoColor=white&style=flat)
 
 ### Milestones
 
+- [x] Use React
 - [x] Test Driven Development
 - [x] Switch between light and dark mode
 - [x] CICD pipeline
