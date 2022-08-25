@@ -1,21 +1,11 @@
-import {
-  Character,
-  CharacterClass,
-  CLASSLIST,
-  filterBalanced,
-  filterByOptions,
-  filterUnit,
-  getBalancedClasses,
-  getExclusiveClasses,
-  Options,
-  Pick,
-  randomizeGender,
-  Route,
-  routes as ROUTES,
-  routes,
-  splitAvatarUnit,
-  UNITLIST,
-} from '@fepmu/data/three-houses';
+import { CLASSLIST, getExclusiveClasses, routes as ROUTES, UNITLIST } from "../data";
+import { Character, CharacterClass, Pick, Route, Options } from "../models";
+import { getBalancedClasses } from "./balance";
+import { isViable } from "./builds";
+import { filterByOptions, filterBalanced } from "./class-filters";
+import { randomizeGender } from "./randomize-gender";
+import { splitAvatarUnit, filterUnit } from "./unit-filters";
+
 
 export const getClassesFiltered = (
   includeSeasonPass: boolean,
@@ -87,7 +77,7 @@ export const randomizeUnits = (
   route: string
 ) => {
   const mandatoryCharacters = route === 'Silver Snow' ? 1 : 2;
-  const lordName = (routes.find((r) => r.name === route) as Route).lord;
+  const lordName = (ROUTES.find((r) => r.name === route) as Route).lord;
   const lord = units.splice(
     units.findIndex((u) => u.name === lordName),
     1
@@ -106,7 +96,7 @@ export const randomizeUnits = (
 };
 
 export const applyFilters = (options: Options): Pick[] => {
-  const { avatarGender: genderOp } = options;
+  const { avatarGender: genderOp, randomizeClasses } = options;
   let dancerPicked = false;
 
   const avatarGender = genderOp === 'random' ? randomizeGender() : genderOp;
@@ -124,11 +114,13 @@ export const applyFilters = (options: Options): Pick[] => {
   ];
 
   return selected.reduce((picks: Pick[], unit: Character) => {
+    const unitClass = randomizeClasses
+      ? getRandomClass(unit, options, picks, dancerPicked)
+      : undefined;
     const pick: Pick = {
       unit,
-      class: options.randomizeClasses
-        ? getRandomClass(unit, options, picks, dancerPicked)
-        : undefined,
+      class: unitClass,
+      isInviable: randomizeClasses && unitClass ? !isViable(unit, unitClass) : false
     };
     dancerPicked = pick.class
       ? dancerPicked || (!dancerPicked && pick.class.code === 'dancer')

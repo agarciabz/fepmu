@@ -1,5 +1,4 @@
-import { Character } from '../models';
-import { Pick } from './pick';
+import { Character, Pick } from '../models';
 
 export const units: { [K: string]: Character } = {
   bylethm: {

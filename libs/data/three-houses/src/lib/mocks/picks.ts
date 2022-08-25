@@ -1,4 +1,4 @@
-import { Pick } from '../data';
+import { Pick } from '../models';
 
 export const mockPicks: Pick[] = [
   {

@@ -42,9 +42,16 @@ describe('character build functions', () => {
     // example 2
   });
 
-  it('isViable', () => {
+  it('isViable 1', () => {
     const expected = true;
     const result = isViable(character, characterClass);
     expect(result).toEqual(expected);
   });
+
+  it('isViable 2', () => {
+    const expected = false;
+    const result = isViable(getUnit('mercedes'), getClass('wyvernlord'));
+    expect(result).toEqual(expected);
+  });
+
 });
