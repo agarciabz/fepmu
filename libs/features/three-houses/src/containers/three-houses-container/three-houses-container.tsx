@@ -3,6 +3,8 @@ import {
   Options,
   applyFilters,
   getUnitsText,
+  SkillMap,
+  createSkillMap,
 } from '@fepmu/data/three-houses';
 import { UnitList } from '@fepmu/ui/unit-list';
 import { useEffect, useState } from 'react';
@@ -12,6 +14,11 @@ import { Button, Heading } from '@chakra-ui/react';
 const createText = (picks: Pick[], route: string) =>
   ['Fire Emblem Three Houses PMU', route, '', getUnitsText(picks)].join('\n');
 
+const createSkillCount = (skills: SkillMap) =>
+  Array.from(skills.entries())
+    .map(([key, value]) => `${key}: ${value}`)
+    .join('\n');
+
 /* eslint-disable-next-line */
 export interface ThreeHousesContainerProps {}
 
@@ -19,6 +26,7 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
   const [options, setOptions] = useState<Options | undefined>(undefined);
   const [picks, setPicks] = useState<Pick[]>([]);
   const [text, setText] = useState<string>('');
+  const [skillCount, setSkillCount] = useState<string>('');
 
   useEffect(() => {
     if (options) setPicks(applyFilters(options));
@@ -26,6 +34,11 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
 
   useEffect(() => {
     if (picks.length && options) setText(createText(picks, options.route));
+    if (picks.length && options?.randomizeClasses) {
+      const classes = picks.map((p) => p.class!);
+      const skillCount = createSkillCount(createSkillMap(classes));
+      console.log(skillCount);
+    }
   }, [picks]);
 
   const handleSubmit = (options: Options) => setOptions({ ...options });
