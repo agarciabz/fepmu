@@ -44,6 +44,7 @@ export function ThreeHousesForm(props: ThreeHousesFormProps) {
   ];
 
   const [state, setState] = useState<Options>(defaultOptions);
+
   useEffect(() => {
     if (!state.randomizeClasses) {
       setState({

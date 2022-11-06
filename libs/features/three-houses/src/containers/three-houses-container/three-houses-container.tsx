@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { Button, Heading } from '@chakra-ui/react';
 import {
   Pick,
   Options,
@@ -5,16 +7,16 @@ import {
   getUnitsText,
   SkillMap,
   createSkillMap,
+  CharacterClass,
 } from '@fepmu/data/three-houses';
 import { UnitList } from '@fepmu/ui/unit-list';
-import { useEffect, useState } from 'react';
 import ThreeHousesForm from '../../components/three-houses-form/three-houses-form';
-import { Button, Heading } from '@chakra-ui/react';
+import ThreeHousesSkills from '../../components/three-houses-skills/three-houses-skills';
 
 const createText = (picks: Pick[], route: string) =>
   ['Fire Emblem Three Houses PMU', route, '', getUnitsText(picks)].join('\n');
 
-const createSkillCount = (skills: SkillMap) =>
+const createSkillMapText = (skills: SkillMap) =>
   Array.from(skills.entries())
     .map(([key, value]) => `${key}: ${value}`)
     .join('\n');
@@ -26,7 +28,7 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
   const [options, setOptions] = useState<Options | undefined>(undefined);
   const [picks, setPicks] = useState<Pick[]>([]);
   const [text, setText] = useState<string>('');
-  const [skillCount, setSkillCount] = useState<string>('');
+  const [skillMap, setSkillMap] = useState<SkillMap | null>();
 
   useEffect(() => {
     if (options) setPicks(applyFilters(options));
@@ -35,10 +37,15 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
   useEffect(() => {
     if (picks.length && options) setText(createText(picks, options.route));
     if (picks.length && options?.randomizeClasses) {
-      const classes = picks.map((p) => p.class!);
-      const skillCount = createSkillCount(createSkillMap(classes));
-      console.log(skillCount);
+      const classes = picks.map((p) => p.class) as CharacterClass[];
+      const skillMap = createSkillMap(classes);
+      const skillMapText = createSkillMapText(skillMap);
+      console.log(skillMapText);
+      setSkillMap(skillMap);
+    } else {
+      setSkillMap(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [picks]);
 
   const handleSubmit = (options: Options) => setOptions({ ...options });
@@ -58,6 +65,7 @@ export function ThreeHousesContainer(props: ThreeHousesContainerProps) {
       {picks.length > 0 ? (
         <>
           <UnitList picks={picks}>Selected units</UnitList>
+          {skillMap ? <ThreeHousesSkills skills={skillMap} /> : <></>}
           <div className="flex">
             <Button className="grow" size={'lg'} onClick={copyToClipboard}>
               Copy to clipboard
