@@ -1,3 +1,4 @@
+import { Box, HStack, Image } from '@chakra-ui/react';
 import { SkillMap } from '@fepmu/data/three-houses';
 
 export interface Props {
@@ -21,16 +22,18 @@ export function ThreeHousesSkills(props: Props) {
   const { skills } = props;
 
   return (
-    <ul className="grid grid-cols-5 text-sm justify-items-end">
+    <div className="grid grid-cols-5 text-sm gap-x-6 gap-y-3 ">
       {Array.from(skills.entries()).map(([skill, count]) => {
-        const text = translate[skill] as string;
+        const skillName = translate[skill];
+        const img = `assets/icons/skills/${skillName.toLowerCase()}.png`;
         return (
-          <li key={skill}>
-            {text} {count}
-          </li>
+          <HStack key={skill}>
+            <img className="w-8" src={img} alt={skillName} />{' '}
+            <span className="text-xl">{count}</span>
+          </HStack>
         );
       })}
-    </ul>
+    </div>
   );
 }
 
